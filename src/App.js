@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    cocktails: []
+  };
+  nameIngredient = "vodka";
+  componentDidMount() {
+    fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.nameIngredient}`
+    )
+      .then(res => res.json())
+      .then(res =>
+        this.setState({
+          cocktails: res.drinks
+        })
+      );
+  }
+  render() {
+    console.log(this.state.cocktails);
+    return (
+      <div className="App">
+        <div className="container">
+          <div className="row">
+            {this.state.cocktails.map(cocktail => {
+              return (
+                <div className="col-4 mb-4" key={cocktail.idDrink}>
+                  <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
+                  <h3>{cocktail.strDrink}</h3>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
