@@ -1,17 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CocktailItem from "./components/CocktailItem";
 import Cocktails from "./components/Cocktails";
 import Cocktail from "./components/Cocktail";
 import "./App.css";
 
-class App extends React.Component {
+class App extends Component {
   state = {
     cocktails: [],
-    cocktailInfo: null,
+    cocktailInfo: {},
     loading: false
   };
-  defaultCocktail = "milk";
+  defaultCocktail = "coffee";
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -28,25 +27,45 @@ class App extends React.Component {
       .catch(err => console.log("Error: ", err));
   }
   onMoreDetails = id => {
+    this.setState({ cocktailInfo: {}, loading: true });
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then(res => res.json())
-      .then(res => console.log(res.drinks[0]));
-    console.log("id: ", id);
+      .then(res =>
+        this.setState({ cocktailInfo: res.drinks[0], loading: false })
+      );
   };
   render() {
-    const { cocktails, loading } = this.state;
+    const { cocktails, cocktailInfo, loading } = this.state;
     return (
-      <div className="App">
-        <div className="container">
-          <div className="row">
-            <Cocktails
-              cocktails={cocktails}
-              onMoreDetails={this.onMoreDetails}
-              loading={loading}
-            />
+      <Router>
+        <div className="App">
+          <div className="container-fluid">
+            <div className="row pt-4">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <Cocktails
+                      {...props}
+                      cocktails={cocktails}
+                      onMoreDetails={this.onMoreDetails}
+                      loading={loading}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/cocktail"
+                  render={() => (
+                    <Cocktail cocktailInfo={cocktailInfo} loading={loading} />
+                  )}
+                />
+              </Switch>
+            </div>
           </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }

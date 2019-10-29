@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import CocktailItem from "../CocktailItem";
 import Spinner from "../Spinner";
@@ -9,9 +9,8 @@ const Cocktails = ({ onMoreDetails, cocktails, loading }) => {
     return <Spinner />;
   }
   return (
-    <Fragment>
+    <>
       {cocktails.map(item => {
-        console.log(item);
         return (
           <CocktailItem
             item={item}
@@ -20,13 +19,14 @@ const Cocktails = ({ onMoreDetails, cocktails, loading }) => {
           />
         );
       })}
-    </Fragment>
+    </>
   );
 };
 
 Cocktails.propTypes = {
   cocktails: PropTypes.array.isRequired,
-  onMoreDetails: PropTypes.func.isRequired
+  onMoreDetails: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default Cocktails;
