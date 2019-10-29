@@ -1,5 +1,6 @@
 import React from "react";
 import Spinner from "../Spinner";
+import { Link } from "react-router-dom";
 import "./Cocktail.css";
 
 const Cocktail = ({
@@ -30,6 +31,29 @@ const Cocktail = ({
   cocktailInfo,
   loading
 }) => {
+  const ingredients = [
+    strIngredient1,
+    strIngredient2,
+    strIngredient3,
+    strIngredient4,
+    strIngredient5,
+    strIngredient6,
+    strIngredient7,
+    strIngredient8,
+    strIngredient9,
+    strIngredient10,
+    strIngredient11,
+    strIngredient12,
+    strIngredient13,
+    strIngredient14,
+    strIngredient15
+  ];
+  let classNames = "badge mr-3 badge-";
+  if (strAlcoholic === "Alcoholic") {
+    classNames += "danger";
+  } else {
+    classNames += "success";
+  }
   if (loading) {
     return <Spinner />;
   }
@@ -40,21 +64,15 @@ const Cocktail = ({
       </div>
       <div className="col-md-8">
         <h5>{strDrink}</h5>
-        <p>{strInstructions}</p>
+        <p>
+          <span className="text-info font-weight-bold">Instuction:</span>{" "}
+          {strInstructions}
+        </p>
         <p>
           Category: <span className="badge badge-primary">{strCategory}</span>
         </p>
         <p>
-          Type:{" "}
-          <span
-            className={
-              strAlcoholic === "Alcoholic"
-                ? "badge badge-danger mr-3"
-                : "badge badge-success mr-3"
-            }
-          >
-            {strAlcoholic}
-          </span>
+          Type: <span className={classNames}>{strAlcoholic}</span>
           Glass: <span className="badge badge-secondary mr-3">{strGlass}</span>
           {strIBA && (
             <>
@@ -65,23 +83,18 @@ const Cocktail = ({
         <div>
           Ingredients:
           <ul>
-            <li className="text-warning">{strIngredient1}</li>
-            <li className="text-warning">{strIngredient2}</li>
-            <li className="text-warning">{strIngredient3}</li>
-            <li className="text-warning">{strIngredient4}</li>
-            <li className="text-warning">{strIngredient5}</li>
-            <li className="text-warning">{strIngredient6}</li>
-            <li className="text-warning">{strIngredient7}</li>
-            <li className="text-warning">{strIngredient8}</li>
-            <li className="text-warning">{strIngredient9}</li>
-            <li className="text-warning">{strIngredient10}</li>
-            <li className="text-warning">{strIngredient11}</li>
-            <li className="text-warning">{strIngredient12}</li>
-            <li className="text-warning">{strIngredient13}</li>
-            <li className="text-warning">{strIngredient14}</li>
-            <li className="text-warning">{strIngredient15}</li>
+            {ingredients
+              .filter(item => item)
+              .map(item => (
+                <li className="text-warning" key={Math.random()}>
+                  {item}
+                </li>
+              ))}
           </ul>
         </div>
+        <Link className="btn btn-info" to="/">
+          Back to home
+        </Link>
       </div>
     </>
   );

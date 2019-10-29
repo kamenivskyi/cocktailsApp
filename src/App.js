@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Cocktails from "./components/Cocktails";
 import Cocktail from "./components/Cocktail";
 import "./App.css";
@@ -39,6 +40,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+          <Navbar />
           <div className="container-fluid">
             <div className="row pt-4">
               <Switch>
@@ -57,8 +59,12 @@ class App extends Component {
                 <Route
                   exact
                   path="/cocktail"
-                  render={() => (
-                    <Cocktail cocktailInfo={cocktailInfo} loading={loading} />
+                  render={props => (
+                    <Cocktail
+                      {...props}
+                      cocktailInfo={cocktailInfo}
+                      loading={loading}
+                    />
                   )}
                 />
               </Switch>
