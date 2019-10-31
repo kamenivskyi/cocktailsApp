@@ -1,31 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CocktailItem from "../CocktailItem";
-import Spinner from "../Spinner";
-import "./Cocktails.css";
+import CocktailItem from "./CocktailItem";
+import Spinner from "../layout/Spinner";
 
-const Cocktails = ({ onMoreDetails, cocktails, loading }) => {
-  if (loading) {
-    return <Spinner />;
+const Cocktails = ({ cocktails, loading }) => {
+  if (loading) return <Spinner />;
+  else if (!cocktails) {
+    return (
+      <div className="row justify-content-center">
+        <h2 className="text-danger mt-3">
+          Maybe you are drunk :D ? Choose a more acceptable name.
+        </h2>
+      </div>
+    );
   }
   return (
-    <>
+    <div className="row">
       {cocktails.map(item => {
-        return (
-          <CocktailItem
-            item={item}
-            onMoreDetails={onMoreDetails}
-            key={item.idDrink}
-          />
-        );
+        return <CocktailItem item={item} key={item.idDrink} />;
       })}
-    </>
+    </div>
   );
 };
 
 Cocktails.propTypes = {
-  cocktails: PropTypes.array.isRequired,
-  onMoreDetails: PropTypes.func.isRequired,
+  cocktails: PropTypes.array,
   loading: PropTypes.bool.isRequired
 };
 
