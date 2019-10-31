@@ -8,6 +8,7 @@ class Search extends Component {
   handleChange = ({ target: { value } }) => {
     this.setState({ value });
   };
+
   handleSubmit = event => {
     const { value } = this.state;
     const { searchCocktails, setAlert } = this.props;
@@ -18,9 +19,10 @@ class Search extends Component {
       : setAlert("Please type something", "danger");
     this.setState({ value: "" });
   };
+
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form-group col-md-6" onSubmit={this.handleSubmit}>
         <div className="input-group mb-3">
           <input
             type="text"

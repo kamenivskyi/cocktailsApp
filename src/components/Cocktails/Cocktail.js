@@ -5,7 +5,8 @@ import Spinner from "../layout/Spinner";
 
 class Cocktail extends Component {
   componentDidMount() {
-    this.props.onMoreDetails(this.props.match.params.id);
+    const { onMoreDetails, match } = this.props;
+    onMoreDetails(match.params.id);
   }
 
   render() {
@@ -98,19 +99,16 @@ class Cocktail extends Component {
       return <Spinner />;
     }
     const elements = (
-      <>
+      <ul>
         {ingredients.map((ingred, measureIndx) => (
-          <li
-            className="d-flex justify-content-between mb-2"
-            key={Math.random()}
-          >
-            <span className="text-warning mr-5">
-              {ingred} {measures[measureIndx] ? "=>" : ""}
+          <li className="d-flex justify-content-between" key={Math.random()}>
+            <span>
+              {ingred}{" "}
+              {measures[measureIndx] ? `(${measures[measureIndx]})` : ""}
             </span>
-            <span>{measures[measureIndx]}</span>
           </li>
         ))}
-      </>
+      </ul>
     );
     return (
       <div className="row">
@@ -118,29 +116,34 @@ class Cocktail extends Component {
           <img src={strDrinkThumb} alt={strDrink} />
         </div>
         <div className="col-md-8">
-          <h5>{strDrink}</h5>
-          <p>
-            <span className="text-info font-weight-bold">Instuction:</span>{" "}
-            {strInstructions}
-          </p>
-          <p>
-            Category: <span className="badge badge-primary">{strCategory}</span>
-          </p>
-          <p>
-            Type: <span className={classNames}>{strAlcoholic}</span>
-            Glass:{" "}
-            <span className="badge badge-secondary mr-3">{strGlass}</span>
-            {strIBA && (
-              <>
-                IBA: <span className="badge badge-success mr-3">{strIBA}</span>{" "}
-              </>
-            )}
-          </p>
-          <div>
-            Ingredients:
-            <ul style={{ width: "50%" }}>{elements}</ul>
+          <div className="card p-3">
+            <h5>{strDrink}</h5>
+            <p>
+              <span className="text-info font-weight-bold">Instuction:</span>{" "}
+              {strInstructions}
+            </p>
+            <p>
+              Category:{" "}
+              <span className="badge badge-primary">{strCategory}</span>
+            </p>
+            <p>
+              Type: <span className={classNames}>{strAlcoholic}</span>
+              Glass:{" "}
+              <span className="badge badge-secondary mr-3">{strGlass}</span>
+              {strIBA && (
+                <>
+                  IBA:{" "}
+                  <span className="badge badge-success mr-3">{strIBA}</span>{" "}
+                </>
+              )}
+            </p>
+            <div>
+              Ingredients:
+              {elements}
+            </div>
           </div>
-          <Link className="btn btn-dark mb-3" to="/">
+
+          <Link className="btn btn-dark my-3" to="/">
             Back to home
           </Link>
         </div>

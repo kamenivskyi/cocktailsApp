@@ -91,9 +91,7 @@ class Random extends Component {
               {ingredients
                 .filter(item => item)
                 .map(item => (
-                  <li className="text-warning" key={Math.random()}>
-                    {item}
-                  </li>
+                  <li key={Math.random()}>{item}</li>
                 ))}
             </ul>
           </div>

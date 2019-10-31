@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-import Search from "./components/layout/Search";
+import Search from "./components/cocktails/Search";
 import Alert from "./components/layout/Alert";
+import Filters from "./components/cocktails/Filters";
 import Random from "./components/pages/Random";
 import About from "./components/pages/About";
 import Cocktails from "./components/cocktails/Cocktails";
@@ -14,6 +15,7 @@ class App extends Component {
     cocktails: [],
     cocktailInfo: {},
     randomCocktail: {},
+    term: "",
     alert: null,
     loading: false
   };
@@ -53,6 +55,19 @@ class App extends Component {
       .then(res => res.json())
       .then(res => this.setState({ cocktails: res.drinks, loading: false }));
   };
+  onFilterChange = term => {
+    this.setState({ term });
+  };
+
+  filterItems = (items, term) => {
+    if (!term.length) {
+      return items;
+    }
+    return items.filter(item => {
+      return item.strDrink.toLowerCase().includes(term.toLowerCase());
+    });
+  };
+
   getRandomCocktail = async () => {
     this.setState({ loading: true });
     await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
@@ -74,9 +89,10 @@ class App extends Component {
       cocktailInfo,
       randomCocktail,
       alert,
+      term,
       loading
     } = this.state;
-
+    const visibleCocktails = this.filterItems(cocktails, term);
     return (
       <Router>
         <div className="App">
@@ -90,13 +106,16 @@ class App extends Component {
                   path="/"
                   render={props => (
                     <>
-                      <Search
-                        searchCocktails={this.searchCocktails}
-                        setAlert={this.setAlert}
-                      />
+                      <div className="form-row">
+                        <Search
+                          searchCocktails={this.searchCocktails}
+                          setAlert={this.setAlert}
+                        />
+                        <Filters onFilterChange={this.onFilterChange} />
+                      </div>
                       <Cocktails
                         {...props}
-                        cocktails={cocktails}
+                        cocktails={visibleCocktails}
                         loading={loading}
                       />
                     </>
