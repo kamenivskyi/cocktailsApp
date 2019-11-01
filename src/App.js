@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import CocktailService from "./services/CocktailService";
 import Navbar from "./components/layout/Navbar";
 import Search from "./components/cocktails/Search";
 import Alert from "./components/layout/Alert";
@@ -11,67 +12,59 @@ import Cocktail from "./components/cocktails/Cocktail";
 import "./App.css";
 
 class App extends Component {
+  cocktailService = new CocktailService();
+  defaultCocktail = "coffee";
+
   state = {
     cocktails: [],
     cocktailInfo: {},
     randomCocktail: {},
     term: "",
     alert: null,
-    loading: false
+    loading: true
   };
-  defaultCocktail = "coffee";
 
-  async componentDidMount() {
-    this.setState({ loading: true });
-    await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.defaultCocktail}`
-    )
-      .then(res => res.json())
-      .then(res =>
-        this.setState({
-          cocktails: res.drinks,
-          loading: false
-        })
-      )
+  componentDidMount() {
+    this.cocktailService
+      .getDrinksByName(this.defaultCocktail)
+      .then(res => this.setState({ cocktails: res.drinks, loading: false }))
       .catch(err => console.log("Error: ", err));
   }
-  onMoreDetails = async id => {
+
+  searchCocktails = name => {
+    this.setState({ loading: true });
+    this.cocktailService
+      .getDrinksByName(name)
+      .then(res => this.setState({ cocktails: res.drinks, loading: false }));
+  };
+
+  onFilterChange = term => {
+    this.setState({ term });
+  };
+
+  filterCocktails = (items, term) => {
+    if (!term.length) {
+      return items;
+    }
+    return items.filter(({ strDrink }) => {
+      return strDrink.toLowerCase().includes(term.toLowerCase());
+    });
+  };
+
+  onMoreDetails = id => {
     this.setState({ cocktailInfo: {}, loading: true });
-    await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-    )
-      .then(res => res.json())
+    this.cocktailService
+      .getDrinkById(id)
       .then(res =>
         this.setState({ cocktailInfo: res.drinks[0], loading: false })
       )
       .catch(err => console.log("Error: ", err));
   };
 
-  searchCocktails = async name => {
+  getRandomCocktail = () => {
     this.setState({ loading: true });
-    await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
-    )
-      .then(res => res.json())
-      .then(res => this.setState({ cocktails: res.drinks, loading: false }));
-  };
-  onFilterChange = term => {
-    this.setState({ term });
-  };
-
-  filterItems = (items, term) => {
-    if (!term.length) {
-      return items;
-    }
-    return items.filter(item => {
-      return item.strDrink.toLowerCase().includes(term.toLowerCase());
-    });
-  };
-
-  getRandomCocktail = async () => {
-    this.setState({ loading: true });
-    await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
-      .then(res => res.json())
+    this.cocktailService
+      .getRandom()
       .then(res =>
         this.setState({ randomCocktail: res.drinks[0], loading: false })
       )
@@ -92,7 +85,7 @@ class App extends Component {
       term,
       loading
     } = this.state;
-    const visibleCocktails = this.filterItems(cocktails, term);
+    const visibleCocktails = this.filterCocktails(cocktails, term);
     return (
       <Router>
         <div className="App">
@@ -138,7 +131,7 @@ class App extends Component {
                   render={props => (
                     <Random
                       getRandomCocktail={this.getRandomCocktail}
-                      randomCocktail={randomCocktail}
+                      cocktailInfo={randomCocktail}
                       loading={loading}
                     />
                   )}
