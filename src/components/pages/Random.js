@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import CocktailData from "../cocktails/CocktailData";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import CocktailData from '../cocktails/CocktailData';
 
 class Random extends Component {
   componentDidMount() {
-    this.props.getRandomCocktail();
+    this.props.getRandomDrink();
   }
+
   render() {
     const { cocktailInfo, loading } = this.props;
     return <CocktailData cocktailInfo={cocktailInfo} loading={loading} />;
   }
 }
 Random.propTypes = {
-  getRandomCocktail: PropTypes.func.isRequired,
+  getRandomDrink: PropTypes.func.isRequired,
   randomCocktail: PropTypes.object
 };
 

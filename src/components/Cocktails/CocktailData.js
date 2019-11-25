@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import Spinner from "../layout/Spinner";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Spinner from '../layout/Spinner';
 
 const CocktailData = props => {
   const {
@@ -81,11 +81,11 @@ const CocktailData = props => {
   const filteredIngreds = ingredArray.filter(item => item);
   const measures = measuresArray.filter(item => item);
 
-  let classNames = "badge mr-3 badge-";
-  if (strAlcoholic === "Alcoholic") {
-    classNames += "danger";
+  let classNames = 'badge mr-3 badge-';
+  if (strAlcoholic === 'Alcoholic') {
+    classNames += 'danger';
   } else {
-    classNames += "success";
+    classNames += 'success';
   }
   if (props.loading) {
     return <Spinner />;
@@ -93,36 +93,36 @@ const CocktailData = props => {
   const elements = (
     <ul>
       {filteredIngreds.map((ingred, measureIndx) => (
-        <li className="d-flex justify-content-between" key={Math.random()}>
+        <li key={Math.random()}>
           <span>
-            {ingred} {measures[measureIndx] ? `(${measures[measureIndx]})` : ""}
+            {ingred} {measures[measureIndx] ? `(${measures[measureIndx]})` : ''}
           </span>
         </li>
       ))}
     </ul>
   );
   return (
-    <div className="row">
-      <div className="col-md-4 mb-3">
+    <div className='row'>
+      <div className='col-md-4 mb-3'>
         <img src={strDrinkThumb} alt={strDrink} />
       </div>
-      <div className="col-md-8">
-        <div className="card p-3">
+      <div className='col-md-8'>
+        <div className='card p-3'>
           <h5>{strDrink}</h5>
           <p>
-            <span className="text-info font-weight-bold">Instuction:</span>{" "}
+            <span className='text-info font-weight-bold'>Instuction:</span>{' '}
             {strInstructions}
           </p>
           <p>
-            Category: <span className="badge badge-primary">{strCategory}</span>
+            Category: <span className='badge badge-primary'>{strCategory}</span>
           </p>
           <p>
             Type: <span className={classNames}>{strAlcoholic}</span>
-            Glass:{" "}
-            <span className="badge badge-secondary mr-3">{strGlass}</span>
+            Glass:{' '}
+            <span className='badge badge-secondary mr-3'>{strGlass}</span>
             {strIBA && (
               <>
-                IBA: <span className="badge badge-success mr-3">{strIBA}</span>{" "}
+                IBA: <span className='badge badge-success mr-3'>{strIBA}</span>{' '}
               </>
             )}
           </p>
@@ -132,9 +132,9 @@ const CocktailData = props => {
           </div>
         </div>
 
-        <Link className="btn btn-dark my-3" to="/">
+        <NavLink className='btn btn-dark my-3' to='/'>
           Back to home
-        </Link>
+        </NavLink>
       </div>
     </div>
   );

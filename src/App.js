@@ -1,46 +1,59 @@
-import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import CocktailService from "./services/CocktailService";
-import Navbar from "./components/layout/Navbar";
-import Search from "./components/cocktails/Search";
-import Alert from "./components/layout/Alert";
-import Filters from "./components/cocktails/Filters";
-import Random from "./components/pages/Random";
-import About from "./components/pages/About";
-import Cocktails from "./components/cocktails/Cocktails";
-import Cocktail from "./components/cocktails/Cocktail";
-import "./App.css";
+import React, { Component } from 'react';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import CocktailService from './services/CocktailService';
+import Navbar from './components/layout/Navbar';
+import Search from './components/cocktails/Search';
+import Alert from './components/layout/Alert';
+import Filters from './components/cocktails/Filters';
+import Random from './components/pages/Random';
+import Categories from './components/pages/Categories';
+import CategoryDrinks from './components/cocktails/CategoryDrinks';
+import About from './components/pages/About';
+import Cocktails from './components/cocktails/Cocktails';
+import Cocktail from './components/cocktails/Cocktail';
+import './App.css';
 
 class App extends Component {
-  cocktailService = new CocktailService();
-  defaultCocktail = "coffee";
+  service = new CocktailService();
+  defaultCocktail = 'daiquiri';
 
   state = {
-    cocktails: [],
+    drinks: [],
+    categories: [],
+    categoryItems: [],
     cocktailInfo: {},
-    randomCocktail: {},
-    term: "",
+    randomDrink: {},
+    term: '',
+    error: false,
     alert: null,
     loading: true
   };
 
   componentDidMount() {
-    this.cocktailService
+    this.service
       .getDrinksByName(this.defaultCocktail)
-      .then(res => this.setState({ cocktails: res.drinks, loading: false }))
-      .catch(err => console.log("Error: ", err));
+      .then(drinks => this.setState({ drinks, loading: false }))
+      .catch(this.onError);
   }
+  onError = err => {
+    this.setState({ error: true });
+    console.log('Error: ', err);
+  };
 
-  searchCocktails = name => {
+  searchDrinks = name => {
     this.setState({ loading: true });
-    this.cocktailService
+    this.service
       .getDrinksByName(name)
-      .then(res => this.setState({ cocktails: res.drinks, loading: false }));
+      .then(drinks => this.setState({ drinks, loading: false }))
+      .catch(this.onError);
   };
 
   onFilterChange = term => {
     this.setState({ term });
   };
+  // getDrinksByName = (name) => {
+
+  // }
 
   filterCocktails = (items, term) => {
     if (!term.length) {
@@ -52,23 +65,36 @@ class App extends Component {
   };
 
   onMoreDetails = id => {
-    this.setState({ cocktailInfo: {}, loading: true });
-    this.cocktailService
+    this.setState({ loading: true });
+    this.service
       .getDrinkById(id)
-      .then(res =>
-        this.setState({ cocktailInfo: res.drinks[0], loading: false })
-      )
-      .catch(err => console.log("Error: ", err));
+      .then(cocktailInfo => this.setState({ cocktailInfo, loading: false }))
+      .catch(this.onError);
   };
 
-  getRandomCocktail = () => {
+  getRandomDrink = () => {
     this.setState({ loading: true });
-    this.cocktailService
+    this.service
       .getRandom()
-      .then(res =>
-        this.setState({ randomCocktail: res.drinks[0], loading: false })
-      )
-      .catch(err => console.log(err));
+      .then(randomDrink => this.setState({ randomDrink, loading: false }))
+      .catch(this.onError);
+  };
+
+  getCategories = () => {
+    this.setState({ loading: true });
+    this.service
+      .getCategories()
+      .then(categories => this.setState({ categories, loading: false }))
+      .catch(this.onError);
+  };
+
+  getByCategory = category => {
+    this.setState({ loading: true });
+    this.service.getByCategory(category).then(drinks =>
+      this.setState({ categoryItems: drinks, loading: false }, () => {
+        console.log(this.state.categoryItems);
+      })
+    );
   };
 
   setAlert = (msg, type) => {
@@ -78,37 +104,42 @@ class App extends Component {
 
   render() {
     const {
-      cocktails,
+      drinks,
+      categories,
+      categoryItems,
       cocktailInfo,
-      randomCocktail,
+      getRandomDrink,
+      randomDrink,
       alert,
       term,
       loading
     } = this.state;
-    const visibleCocktails = this.filterCocktails(cocktails, term);
+
+    const visibleDrinks = this.filterCocktails(drinks, term);
+
     return (
       <Router>
-        <div className="App">
+        <div className='App'>
           <Navbar />
-          <div className="container-fluid">
-            <div className="pt-4">
+          <div className='container-fluid'>
+            <div className='pt-4'>
               <Alert alert={alert} />
               <Switch>
                 <Route
                   exact
-                  path="/"
+                  path='/'
                   render={props => (
                     <>
-                      <div className="form-row">
+                      <div className='form-row'>
                         <Search
-                          searchCocktails={this.searchCocktails}
+                          searchDrinks={this.searchDrinks}
                           setAlert={this.setAlert}
                         />
                         <Filters onFilterChange={this.onFilterChange} />
                       </div>
                       <Cocktails
                         {...props}
-                        cocktails={visibleCocktails}
+                        cocktails={visibleDrinks}
                         loading={loading}
                       />
                     </>
@@ -116,7 +147,7 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/cocktail/:id"
+                  path='/cocktail/:id'
                   render={props => (
                     <Cocktail
                       {...props}
@@ -127,16 +158,39 @@ class App extends Component {
                   )}
                 />
                 <Route
-                  path="/random"
+                  path='/random'
                   render={props => (
                     <Random
-                      getRandomCocktail={this.getRandomCocktail}
-                      cocktailInfo={randomCocktail}
+                      getRandomDrink={this.getRandomDrink}
+                      cocktailInfo={randomDrink}
                       loading={loading}
                     />
                   )}
                 />
-                <Route exact path="/about" component={About} />
+                <Route
+                  path='/categories'
+                  render={() => (
+                    <Categories
+                      getCategories={this.getCategories}
+                      categories={categories}
+                      loading={loading}
+                      filterByCategory={this.filterByCategory}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path='/category/:name'
+                  render={props => (
+                    <CategoryDrinks
+                      {...props}
+                      categoryItems={categoryItems}
+                      loading={loading}
+                      getByCategory={this.getByCategory}
+                    />
+                  )}
+                />
+                <Route exact path='/about' component={About} />
               </Switch>
             </div>
           </div>

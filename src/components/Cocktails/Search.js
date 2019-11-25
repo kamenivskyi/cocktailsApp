@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
   state = {
-    value: ""
+    value: ''
   };
   handleChange = ({ target: { value } }) => {
     this.setState({ value });
@@ -11,29 +11,29 @@ class Search extends Component {
 
   handleSubmit = event => {
     const { value } = this.state;
-    const { searchCocktails, setAlert } = this.props;
+    const { searchDrinks, setAlert } = this.props;
 
     event.preventDefault();
     value.trim().length > 0
-      ? searchCocktails(value)
-      : setAlert("Please type something", "danger");
-    this.setState({ value: "" });
+      ? searchDrinks(value)
+      : setAlert('Please type something', 'danger');
+    this.setState({ value: '' });
   };
 
   render() {
     return (
-      <form className="form-group col-md-6" onSubmit={this.handleSubmit}>
-        <div className="input-group mb-3">
+      <form className='form-group col-md-6' onSubmit={this.handleSubmit}>
+        <div className='input-group mb-3'>
           <input
-            type="text"
-            className="form-control"
-            placeholder="Type the name of the cocktail"
-            aria-label="Search cocktails"
+            type='text'
+            className='form-control'
+            placeholder='Type the name of the cocktail'
+            aria-label='Search cocktails'
             onChange={this.handleChange}
             value={this.state.value}
           />
-          <div className="input-group-append">
-            <button className="btn btn-outline-secondary" type="button">
+          <div className='input-group-append'>
+            <button className='btn btn-outline-secondary' type='button'>
               Search
             </button>
           </div>
@@ -43,7 +43,7 @@ class Search extends Component {
   }
 }
 Search.propTypes = {
-  searchCocktails: PropTypes.func.isRequired,
+  searchDrinks: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 
