@@ -1,6 +1,6 @@
 import React from 'react';
 import cocktail from '../../images/cocktail.png';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav'>
           <li className='nav-item'>
-            <NavLink to='/' className='nav-link'>
+            <NavLink to='/' exact className='nav-link'>
               Home
             </NavLink>
           </li>

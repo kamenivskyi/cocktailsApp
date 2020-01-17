@@ -25,7 +25,7 @@ class CocktailService {
   };
   getByCategory = async category => {
     const res = await this.getResource(`/filter.php?c=${category}`);
-    return await res.drinks;
+    return res.drinks;
   };
 }
 export default CocktailService;

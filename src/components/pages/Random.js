@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CocktailData from '../cocktails/CocktailData';
+import CocktailService from '../../services/CocktailService';
 
 class Random extends Component {
+  service = new CocktailService();
+
+  state = {
+    randomDrink: {},
+    loading: true
+  };
+
   componentDidMount() {
-    this.props.getRandomDrink();
+    this.getRandomDrink();
   }
 
+  getRandomDrink = () => {
+    this.service
+      .getRandom()
+      .then(randomDrink => this.setState({ randomDrink, loading: false }))
+      .catch(this.onError);
+  };
+
   render() {
-    const { cocktailInfo, loading } = this.props;
-    return <CocktailData cocktailInfo={cocktailInfo} loading={loading} />;
+    const { randomDrink, loading } = this.state;
+    return <CocktailData cocktailInfo={randomDrink} loading={loading} />;
   }
 }
-Random.propTypes = {
-  getRandomDrink: PropTypes.func.isRequired,
-  randomCocktail: PropTypes.object
-};
 
 export default Random;
