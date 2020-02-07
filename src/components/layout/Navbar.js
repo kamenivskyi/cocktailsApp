@@ -1,6 +1,7 @@
 import React from 'react';
 import cocktail from '../../images/cocktail.png';
 import { NavLink } from 'react-router-dom';
+import { Button } from '../layout/Button';
 
 const Navbar = () => {
   return (
@@ -9,17 +10,16 @@ const Navbar = () => {
         <img src={cocktail} alt='Drink' />
         Cocktail-app
       </NavLink>
-      <button
-        class='navbar-toggler'
-        type='button'
+      <Button
+        className='navbar-toggler'
         data-toggle='collapse'
         data-target='#navbarNav'
         aria-controls='navbarCollapse'
         aria-expanded='false'
         aria-label='Toggle navigation'
       >
-        <span class='navbar-toggler-icon'></span>
-      </button>
+        <span className='navbar-toggler-icon'></span>
+      </Button>
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav'>
           <li className='nav-item'>

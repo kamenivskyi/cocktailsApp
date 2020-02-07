@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import Spinner from '../layout/Spinner';
-import CocktailService from '../../services/CocktailService';
+import Spinner from '../components/layout/Spinner';
+import CocktailService from '../services/CocktailService';
 
 class Categories extends PureComponent {
   service = new CocktailService();
@@ -11,6 +11,7 @@ class Categories extends PureComponent {
     loading: false,
     value: ''
   };
+
   componentDidMount() {
     this.getCategories();
   }

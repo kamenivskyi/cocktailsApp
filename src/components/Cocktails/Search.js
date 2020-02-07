@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '../layout/Button';
 
 class Search extends Component {
   state = {
@@ -14,9 +15,13 @@ class Search extends Component {
     const { searchDrinks, setAlert } = this.props;
 
     event.preventDefault();
-    value.trim().length > 0
-      ? searchDrinks(value)
-      : setAlert('Please type something', 'danger');
+
+    if (value.trim().length > 0) {
+      searchDrinks(value);
+    } else {
+      setAlert('Please type something', 'danger');
+    }
+
     this.setState({ value: '' });
   };
 
@@ -33,9 +38,7 @@ class Search extends Component {
             value={this.state.value}
           />
           <div className='input-group-append'>
-            <button className='btn btn-outline-secondary' type='button'>
-              Search
-            </button>
+            <Button className='btn btn-outline-secondary'>Search</Button>
           </div>
         </div>
       </form>

@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+
 import CocktailService from './services/CocktailService';
+
 import Navbar from './components/layout/Navbar';
-import Search from './components/Cocktails/Search';
 import Alert from './components/layout/Alert';
+
+import Search from './components/Cocktails/Search';
 import Filters from './components/Cocktails/Filters';
-import Random from './components/pages/Random';
-import Categories from './components/pages/Categories';
-import CategoryDrinks from './components/pages/CategoryDrinks';
-import About from './components/pages/About';
 import Cocktails from './components/Cocktails/Cocktails';
 import Cocktail from './components/Cocktails/Cocktail';
+
+import Home from './pages/Home';
+import Random from './pages/Random';
+import Categories from './pages/Categories';
+import CategoryDrinks from './pages/CategoryDrinks';
+import About from './pages/About';
+
 import './App.css';
 
 class App extends Component {
@@ -88,20 +94,14 @@ class App extends Component {
                   exact
                   path='/'
                   render={props => (
-                    <>
-                      <div className='form-row'>
-                        <Search
-                          searchDrinks={this.searchDrinks}
-                          setAlert={this.setAlert}
-                        />
-                        <Filters onFilterChange={this.onFilterChange} />
-                      </div>
-                      <Cocktails
-                        {...props}
-                        cocktails={visibleDrinks}
-                        loading={loading}
-                      />
-                    </>
+                    <Home
+                      searchDrinks={this.searchDrinks}
+                      setAlert={this.setAlert}
+                      onFilterChange={this.onFilterChange}
+                      cocktails={visibleDrinks}
+                      loading={loading}
+                      {...props}
+                    />
                   )}
                 />
                 <Route
