@@ -9,6 +9,17 @@ const Navbar = () => {
         <img src={cocktail} alt='Drink' />
         Cocktail-app
       </NavLink>
+      <button
+        class='navbar-toggler'
+        type='button'
+        data-toggle='collapse'
+        data-target='#navbarNav'
+        aria-controls='navbarCollapse'
+        aria-expanded='false'
+        aria-label='Toggle navigation'
+      >
+        <span class='navbar-toggler-icon'></span>
+      </button>
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav'>
           <li className='nav-item'>
@@ -26,7 +37,7 @@ const Navbar = () => {
               Categories
             </NavLink>
           </li>
-          <li className='nav-item ml-auto'>
+          <li className='nav-item'>
             <NavLink to='/about' className='nav-link'>
               About
             </NavLink>

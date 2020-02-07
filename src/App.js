@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import CocktailService from './services/CocktailService';
 import Navbar from './components/layout/Navbar';
-import Search from './components/cocktails/Search';
+import Search from './components/Cocktails/Search';
 import Alert from './components/layout/Alert';
-import Filters from './components/cocktails/Filters';
+import Filters from './components/Cocktails/Filters';
 import Random from './components/pages/Random';
 import Categories from './components/pages/Categories';
 import CategoryDrinks from './components/pages/CategoryDrinks';
 import About from './components/pages/About';
-import Cocktails from './components/cocktails/Cocktails';
-import Cocktail from './components/cocktails/Cocktail';
+import Cocktails from './components/Cocktails/Cocktails';
+import Cocktail from './components/Cocktails/Cocktail';
 import './App.css';
 
 class App extends Component {
@@ -29,6 +29,7 @@ class App extends Component {
   componentDidMount() {
     this.getDrinksByName(this.defaultCocktail);
   }
+
   onError = err => {
     this.setState({ error: true });
     console.log('Error: ', err);

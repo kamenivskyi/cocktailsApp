@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import CocktailData from "../cocktails/CocktailData";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import CocktailData from './CocktailData';
 
 class Cocktail extends Component {
   async componentDidMount() {

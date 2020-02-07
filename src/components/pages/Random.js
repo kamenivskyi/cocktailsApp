@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CocktailData from '../cocktails/CocktailData';
+import CocktailData from '../Cocktails/CocktailData';
 import CocktailService from '../../services/CocktailService';
 
 class Random extends Component {
