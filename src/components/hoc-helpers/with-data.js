@@ -31,8 +31,9 @@ const withData = (Wrapped, getData) => {
       if (loading) {
         return <Spinner />;
       }
-
-      return <Wrapped {...this.props} data={data} loading={loading} />;
+      if (hasData) {
+        return <Wrapped {...this.props} data={data} loading={loading} />;
+      }
     }
   };
 };

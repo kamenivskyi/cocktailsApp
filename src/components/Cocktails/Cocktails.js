@@ -4,8 +4,11 @@ import CocktailItem from './CocktailItem';
 import Spinner from '../layout/Spinner';
 
 const Cocktails = ({ cocktails, loading }) => {
-  if (loading) return <Spinner />;
-  else if (!cocktails) {
+  console.log(cocktails);
+
+  if (loading) {
+    return <Spinner />;
+  } else if (!cocktails) {
     return (
       <div className='row justify-content-center'>
         <h2 className='text-danger mt-3'>
@@ -14,6 +17,7 @@ const Cocktails = ({ cocktails, loading }) => {
       </div>
     );
   }
+  console.log(cocktails);
   return (
     <div className='row'>
       {cocktails.map(item => {

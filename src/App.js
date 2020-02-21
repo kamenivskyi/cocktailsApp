@@ -17,12 +17,11 @@ import Categories from './pages/Categories';
 import CategoryDrinks from './pages/CategoryDrinks';
 import About from './pages/About';
 
+import withData from './components/hoc-helpers';
+
 import './App.css';
 
 class App extends Component {
-  service = new CocktailService();
-  defaultCocktail = 'coffee';
-
   state = {
     drinks: [],
     cocktailInfo: {},
@@ -31,6 +30,8 @@ class App extends Component {
     alert: null,
     loading: true
   };
+  defaultCocktail = 'coffee';
+  service = new CocktailService();
 
   componentDidMount() {
     this.getDrinksByName(this.defaultCocktail);
