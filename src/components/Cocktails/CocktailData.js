@@ -90,7 +90,7 @@ const CocktailData = props => {
   if (props.loading) {
     return <Spinner />;
   }
-  const elements = (
+  const renderedElements = (
     <ul>
       {filteredIngreds.map((ingred, measureIndx) => (
         <li key={Math.random()}>
@@ -128,7 +128,7 @@ const CocktailData = props => {
           </p>
           <div>
             Ingredients:
-            {elements}
+            {renderedElements}
           </div>
         </div>
 

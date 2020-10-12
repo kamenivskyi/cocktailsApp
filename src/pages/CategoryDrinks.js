@@ -12,7 +12,7 @@ class CategoryDrinks extends Component {
 
   componentDidMount() {
     // const { name } = this.props.params;
-    console.log(this.props.match.params);
+    // console.log(this.props.match.params);
     this.getByCategory(this.props.match.params.name);
   }
 

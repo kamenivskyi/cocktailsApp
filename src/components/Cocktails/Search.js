@@ -12,14 +12,14 @@ class Search extends Component {
 
   handleSubmit = event => {
     const { value } = this.state;
-    const { searchDrinks, setAlert } = this.props;
+    const { searchDrinks, generateAlert } = this.props;
 
     event.preventDefault();
 
     if (value.trim().length > 0) {
       searchDrinks(value);
     } else {
-      setAlert('Please type something', 'danger');
+      generateAlert('Please enter something', 'danger');
     }
 
     this.setState({ value: '' });
@@ -32,7 +32,7 @@ class Search extends Component {
           <input
             type='text'
             className='form-control'
-            placeholder='Type the name of the cocktail'
+            placeholder='Enter the name of the cocktail'
             aria-label='Search cocktails'
             onChange={this.handleChange}
             value={this.state.value}

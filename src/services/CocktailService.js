@@ -2,6 +2,7 @@ class CocktailService {
   API_BASE = 'https://www.thecocktaildb.com/api/json/v1/1';
   async getResource(url) {
     const res = await fetch(`${this.API_BASE}${url}`);
+
     if (!res.ok) {
       throw new Error(`Could not fetch: ${url} , received ${res.status}`);
     }

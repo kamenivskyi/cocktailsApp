@@ -30,12 +30,13 @@ class Categories extends PureComponent {
     return (
       <div className='list-group'>
         {categories.map(({ strCategory }) => {
-          const category = strCategory.replace(/[\.\/]/g, '/%20');
+          console.log(strCategory.trim())
+          const formatedCategory = strCategory.replace(/[\.\/]/g, '/%20');
           // let result = strCategory.replace(/[\/]/g, '_').trim();
           // console.log(category);
           return (
             <Link
-              to={`/category/${category}`}
+              to={`/category/${formatedCategory}`}
               className='list-group-item list-group-item-action'
               key={Math.random()}
             >
