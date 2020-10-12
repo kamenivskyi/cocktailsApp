@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-class Filters extends Component {
-  state = {
-    value: ''
-  };
-  handleChange = ({ target: { value } }) => {
-    this.setState({ value }, () => this.props.onFilterChange(this.state.value));
-  };
+const Filters = ({ onFilterChange }) => {
+  const [value, setValue] = useState('');
 
-  render() {
-    return (
-      <div className='form-group col-md-6'>
-        <div className='input-group'>
-          <input
-            className='form-control'
-            type='text'
-            placeholder='Filter cocktails by name'
-            onChange={this.handleChange}
-            value={this.state.value}
-          />
-        </div>
-      </div>
-    );
+  const handleChange = ({ target: { value } }) => {
+    setValue(value);
+    onFilterChange(value)
   }
+
+  return (
+    <div className='form-group col-md-6'>
+      <div className='input-group'>
+        <input
+          className='form-control'
+          type='text'
+          placeholder='Filter cocktails by name'
+          onChange={handleChange}
+          value={value}
+        />
+      </div>
+    </div>
+  );
 }
 
 Filters.propTypes = {
@@ -31,3 +29,13 @@ Filters.propTypes = {
 };
 
 export default Filters;
+
+
+
+
+
+
+
+
+
+

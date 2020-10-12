@@ -1,39 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import CocktailItem from '../components/Cocktails/CocktailItem';
+import Spinner from '../components/layout/Spinner';
 import CocktailService from '../services/CocktailService';
 
-class CategoryDrinks extends Component {
-  service = new CocktailService();
+const CategoryDrinks = ({ match }) => {
+  const [drinks, setDrinks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  state = {
-    items: [],
-    loading: true
-  };
+  const { getCategoryDrinks } = CocktailService;
 
-  componentDidMount() {
-    // const { name } = this.props.params;
-    // console.log(this.props.match.params);
-    this.getByCategory(this.props.match.params.name);
+  useEffect(() => {
+    let cancelled = false;
+
+    const getDrinks = category => {
+      getCategoryDrinks(category).then(items => {
+        if (!cancelled) {
+          setDrinks(items);
+          setLoading(false);
+        }
+      });
+    };
+
+    getDrinks(match.params.name);
+
+    return () => { cancelled = true };
+  }, []);
+
+  if (loading) {
+    return <Spinner />
   }
 
-  getByCategory = category => {
-    this.service.getByCategory(category).then(items =>
-      this.setState({ items, loading: false }, () => {
-        console.log(this.state.items);
-      })
-    );
-  };
-
-  render() {
-    const { items } = this.state;
-    return (
-      <div className='row'>
-        {items.map(item => (
-          <CocktailItem item={item} key={Math.random()} />
-        ))}
-      </div>
-    );
-  }
+  return (
+    <div className='row'>
+      {drinks.map(drink => (
+        <CocktailItem item={drink} key={drink.strDrink} />
+      ))}
+    </div>
+  );
 }
 
 export default CategoryDrinks;

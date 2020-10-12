@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import CocktailItem from './CocktailItem';
 import Spinner from '../layout/Spinner';
 
 const Cocktails = ({ cocktails, loading }) => {
-  console.log(cocktails);
-
   if (loading) {
     return <Spinner />;
+
   } else if (!cocktails) {
     return (
       <div className='row justify-content-center'>
@@ -17,7 +17,7 @@ const Cocktails = ({ cocktails, loading }) => {
       </div>
     );
   }
-  console.log(cocktails);
+
   return (
     <div className='row'>
       {cocktails.map(item => {

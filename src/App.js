@@ -24,12 +24,16 @@ const App = () => {
 
   const { getDrinksByName } = CocktailService;
 
-  const DEFAULT_COCKTAIL = 'tea';
+  const DEFAULT_DRINK_NAME = 'tea';
 
   useEffect(() => {
-    getDrinks(DEFAULT_COCKTAIL)
+    let cancell = false;
 
-    return () => { };
+    if (!cancell) {
+      getDrinks(DEFAULT_DRINK_NAME)
+    }
+
+    return () => { cancell = true };
   }, []);
 
   const onError = err => {

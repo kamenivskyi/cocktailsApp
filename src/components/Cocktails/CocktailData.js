@@ -80,11 +80,16 @@ const CocktailData = props => {
   const filteredIngreds = ingredArray.filter(item => item);
   const measures = measuresArray.filter(item => item);
 
-  let classNames = 'badge mr-3 badge-';
-  if (strAlcoholic === 'Alcoholic') {
-    classNames += 'danger';
-  } else {
-    classNames += 'success';
+  const getClasses = (compareA, compareB) => {
+    const classes = ['badge', 'mr-3'];
+
+    if (compareA === compareB) {
+      classes.push('badge-danger')
+    } else {
+      classes.push('badge-success');
+    }
+
+    return classes.join(' ');
   }
 
   const elements = (
@@ -114,7 +119,7 @@ const CocktailData = props => {
             Category: <span className='badge badge-primary'>{strCategory}</span>
           </p>
           <p>
-            Type: <span className={classNames}>{strAlcoholic}</span>
+            Type: <span className={getClasses(strAlcoholic, 'Alcoholic')}>{strAlcoholic}</span>
             Glass:{' '}
             <span className='badge badge-secondary mr-3'>{strGlass}</span>
             {strIBA && (
