@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../layout/Button';
 
-class Search extends Component {
+class InputPanel extends Component {
   state = {
     value: ''
   };
@@ -45,9 +45,9 @@ class Search extends Component {
     );
   }
 }
-Search.propTypes = {
+InputPanel.propTypes = {
   searchDrinks: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 
-export default Search;
+export default InputPanel;

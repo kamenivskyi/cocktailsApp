@@ -5,10 +5,6 @@ import CocktailService from './services/CocktailService';
 
 import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
-
-// import Search from './components/Cocktails/Search';
-// import Filters from './components/Cocktails/Filters';
-// import Cocktails from './components/Cocktails/Cocktails';
 import Cocktail from './components/Cocktails/Cocktail';
 
 import Home from './pages/Home';
@@ -17,8 +13,6 @@ import Categories from './pages/Categories';
 import CategoryDrinks from './pages/CategoryDrinks';
 import About from './pages/About';
 
-import withData from './components/hoc-helpers';
-
 import './App.css';
 
 const App = () => {
@@ -26,7 +20,6 @@ const App = () => {
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cocktailInfo, setCocktailInfo] = useState({});
   const [drinks, setDrinks] = useState([]);
 
   const defaultCocktail = 'coffee';
@@ -58,8 +51,6 @@ const App = () => {
       .catch(onError);
   };
 
-  // const useFilter = (items, term) => {};
-
   const filterCocktails = (items, term) => {
     if (!term.length) {
       return items;
@@ -71,23 +62,10 @@ const App = () => {
     return visibleItems;
   };
 
-  const onMoreDetails = id => {
-    setLoading(true);
-    service
-      .getDrinkById(id)
-      .then(cocktailInfo => {
-        setCocktailInfo(cocktailInfo);
-        setLoading(false);
-      })
-      .catch(onError);
-  };
-
   const generateAlert = (msg, type) => {
     setAlert({ msg, type })
-    // this.setState({ alert: { msg, type } });
     setTimeout(() => setAlert(null), 4000);
   };
-
 
   const visibleDrinks = filterCocktails(drinks, term);
 
@@ -113,18 +91,7 @@ const App = () => {
                   />
                 )}
               />
-              <Route
-                exact
-                path='/cocktail/:id'
-                render={props => (
-                  <Cocktail
-                    {...props}
-                    cocktailInfo={cocktailInfo}
-                    onMoreDetails={onMoreDetails}
-                    loading={loading}
-                  />
-                )}
-              />
+              <Route exact path='/cocktail/:id' component={Cocktail} />
               <Route exact path='/random' component={Random} />
               <Route exact path='/categories' component={Categories} />
               <Route path='/category/:name' component={CategoryDrinks} />

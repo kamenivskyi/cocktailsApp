@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
 
 const CocktailData = props => {
   const {
@@ -87,10 +86,8 @@ const CocktailData = props => {
   } else {
     classNames += 'success';
   }
-  if (props.loading) {
-    return <Spinner />;
-  }
-  const renderedElements = (
+
+  const elements = (
     <ul>
       {filteredIngreds.map((ingred, measureIndx) => (
         <li key={Math.random()}>
@@ -128,7 +125,7 @@ const CocktailData = props => {
           </p>
           <div>
             Ingredients:
-            {renderedElements}
+            {elements}
           </div>
         </div>
 

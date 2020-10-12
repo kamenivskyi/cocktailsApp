@@ -1,17 +1,36 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import CocktailData from './CocktailData';
 
-class Cocktail extends Component {
-  async componentDidMount() {
-    const { onMoreDetails, match } = this.props;
+import CocktailService from '../../services/CocktailService';
+import Spinner from '../layout/Spinner';
+
+const Cocktail = ({ match }) => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const { getDrinkById } = new CocktailService();
+
+  useEffect(() => {
     onMoreDetails(match.params.id);
+  }, []);
+
+  const onMoreDetails = id => {
+    getDrinkById(id)
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((error) => setError(error));
+  };
+
+  if (loading) {
+    return <Spinner />
   }
 
-  render() {
-    const { cocktailInfo, loading } = this.props;
-    return <CocktailData cocktailInfo={cocktailInfo} loading={loading} />;
-  }
+  return <CocktailData cocktailInfo={data} loading={loading} />;
 }
 Cocktail.propTypes = {
   onMoreDetails: PropTypes.func.isRequired,
