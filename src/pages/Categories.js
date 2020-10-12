@@ -1,52 +1,54 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import Spinner from '../components/layout/Spinner';
 import CocktailService from '../services/CocktailService';
 
-class Categories extends PureComponent {
-  service = new CocktailService();
+const Categories = () => {
+  const [items, setItems] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  state = {
-    categories: [],
-    loading: false,
-    value: ''
+  const { getCategories } = CocktailService;
+
+  useEffect(() => {
+    generateCategories();
+  }, [])
+
+  const generateCategories = () => {
+    getCategories()
+      .then(items => {
+        setItems(items);
+        setLoading(false)
+      })
+      .catch(onError);
   };
 
-  componentDidMount() {
-    this.getCategories();
+  const onError = (error) => console.log(error)
+
+
+  if (loading) {
+    return <Spinner />;
   }
 
-  getCategories = () => {
-    this.setState({ loading: true });
-    this.service
-      .getCategories()
-      .then(categories => this.setState({ categories, loading: false }))
-      .catch(this.onError);
-  };
+  return (
+    <div className='list-group'>
+      {items.map(({ strCategory }) => {
 
-  render() {
-    const { categories, loading } = this.state;
-    if (loading) return <Spinner />;
-    return (
-      <div className='list-group'>
-        {categories.map(({ strCategory }) => {
-          console.log(strCategory.trim())
-          const formatedCategory = strCategory.replace(/[\.\/]/g, '/%20');
-          // let result = strCategory.replace(/[\/]/g, '_').trim();
-          // console.log(category);
-          return (
-            <Link
-              to={`/category/${formatedCategory}`}
-              className='list-group-item list-group-item-action'
-              key={Math.random()}
-            >
-              {strCategory}
-            </Link>
-          );
-        })}
-      </div>
-    );
-  }
+        const formatedCategory = strCategory.replace(/[\.\/]/g, '/%20');
+        // let result = strCategory.replace(/[\/]/g, '_').trim();
+        // console.log(category);
+        return (
+          <Link
+            to={`/category/${formatedCategory}`}
+            className='list-group-item list-group-item-action'
+            key={strCategory}
+          >
+            {strCategory}
+          </Link>
+        );
+      })}
+    </div>
+  );
 }
 
 export default Categories;

@@ -22,11 +22,12 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [drinks, setDrinks] = useState([]);
 
-  const defaultCocktail = 'coffee';
-  const service = new CocktailService();
+  const { getDrinksByName } = CocktailService;
+
+  const DEFAULT_COCKTAIL = 'coffee';
 
   useEffect(() => {
-    getDrinksByName(defaultCocktail);
+    getDrinks(DEFAULT_COCKTAIL);
 
     return () => { };
   }, []);
@@ -44,9 +45,8 @@ const App = () => {
 
   const onFilterChange = term => setTerm(term);
 
-  const getDrinksByName = name => {
-    service
-      .getDrinksByName(name)
+  const getDrinks = name => {
+    getDrinksByName(name)
       .then(drinks => setDrinks(drinks))
       .catch(onError);
   };

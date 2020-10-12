@@ -1,5 +1,6 @@
 class CocktailService {
   API_BASE = 'https://www.thecocktaildb.com/api/json/v1/1';
+
   async getResource(url) {
     const res = await fetch(`${this.API_BASE}${url}`);
 
@@ -29,4 +30,5 @@ class CocktailService {
     return res.drinks;
   };
 }
-export default CocktailService;
+
+export default new CocktailService();

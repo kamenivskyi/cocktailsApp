@@ -16,7 +16,7 @@ class InputPanel extends Component {
 
     event.preventDefault();
 
-    if (value.trim().length > 0) {
+    if (value.trim()) {
       searchDrinks(value);
     } else {
       generateAlert('Please enter something', 'danger');
@@ -47,7 +47,7 @@ class InputPanel extends Component {
 }
 InputPanel.propTypes = {
   searchDrinks: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  generateAlert: PropTypes.func.isRequired
 };
 
 export default InputPanel;

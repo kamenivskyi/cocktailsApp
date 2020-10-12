@@ -3,7 +3,7 @@ import CocktailData from '../components/Cocktails/CocktailData';
 import CocktailService from '../services/CocktailService';
 import withData from '../components/hoc-helpers/with-data';
 
-const { getRandom } = new CocktailService();
+const { getRandom } = CocktailService;
 
 const Random = props => {
   const { data, loading } = props;
