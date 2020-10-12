@@ -19,15 +19,15 @@ const App = () => {
   const [term, setTerm] = useState('');
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [drinks, setDrinks] = useState([]);
 
   const { getDrinksByName } = CocktailService;
 
-  const DEFAULT_COCKTAIL = 'coffee';
+  const DEFAULT_COCKTAIL = 'tea';
 
   useEffect(() => {
-    getDrinks(DEFAULT_COCKTAIL);
+    getDrinks(DEFAULT_COCKTAIL)
 
     return () => { };
   }, []);
@@ -37,19 +37,15 @@ const App = () => {
     console.log('Error: ', err);
   };
 
-  const searchDrinks = name => {
-    setLoading(true);
+  const getDrinks = name => {
+    getDrinksByName(name).then(drinks => {
+      setLoading(false);
+      setDrinks(drinks);
 
-    getDrinksByName(name);
+    }).catch(onError);
   };
 
   const onFilterChange = term => setTerm(term);
-
-  const getDrinks = name => {
-    getDrinksByName(name)
-      .then(drinks => setDrinks(drinks))
-      .catch(onError);
-  };
 
   const filterCocktails = (items, term) => {
     if (!term.length) {
@@ -82,7 +78,7 @@ const App = () => {
                 path='/'
                 render={props => (
                   <Home
-                    searchDrinks={searchDrinks}
+                    getDrinks={getDrinks}
                     generateAlert={generateAlert}
                     onFilterChange={onFilterChange}
                     cocktails={visibleDrinks}

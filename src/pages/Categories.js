@@ -11,20 +11,19 @@ const Categories = () => {
   const { getCategories } = CocktailService;
 
   useEffect(() => {
-    generateCategories();
+    const generateCategories = () => {
+      getCategories()
+        .then(items => {
+          setItems(items);
+          setLoading(false)
+        })
+        .catch(onError);
+    };
+
+    generateCategories()
   }, [])
 
-  const generateCategories = () => {
-    getCategories()
-      .then(items => {
-        setItems(items);
-        setLoading(false)
-      })
-      .catch(onError);
-  };
-
   const onError = (error) => console.log(error)
-
 
   if (loading) {
     return <Spinner />;
@@ -32,8 +31,7 @@ const Categories = () => {
 
   return (
     <div className='list-group'>
-      {items.map(({ strCategory }) => {
-
+      {items && items.map(({ strCategory }) => {
         const formatedCategory = strCategory.replace(/[\.\/]/g, '/%20');
         // let result = strCategory.replace(/[\/]/g, '_').trim();
         // console.log(category);

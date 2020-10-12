@@ -1,13 +1,13 @@
 import React from 'react';
-import InputPanel from '../components/Cocktails/InputPanel';
+import SearchPanel from '../components/Cocktails/SearchPanel';
 import Filters from '../components/Cocktails/Filters';
 import Cocktails from '../components/Cocktails/Cocktails';
 
-const Home = ({ searchDrinks, generateAlert, onFilterChange, ...props }) => {
+const Home = ({ getDrinks, generateAlert, onFilterChange, ...props }) => {
   return (
     <>
       <div className='form-row'>
-        <InputPanel searchDrinks={searchDrinks} generateAlert={generateAlert} />
+        <SearchPanel getDrinks={getDrinks} generateAlert={generateAlert} />
         <Filters onFilterChange={onFilterChange} />
       </div>
       <Cocktails {...props} />
