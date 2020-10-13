@@ -12,6 +12,7 @@ import Random from './pages/Random';
 import Categories from './pages/Categories';
 import CategoryDrinks from './pages/CategoryDrinks';
 import About from './pages/About';
+import NotFound from './pages/NotFound/NotFound';
 
 import './App.css';
 
@@ -24,7 +25,7 @@ const App = () => {
 
   const { getDrinksByName } = CocktailService;
 
-  const DEFAULT_DRINK_NAME = 'tea';
+  const DEFAULT_DRINK_NAME = 'coffee';
 
   useEffect(() => {
     let cancell = false;
@@ -91,11 +92,12 @@ const App = () => {
                   />
                 )}
               />
-              <Route exact path='/cocktail/:id' component={Cocktail} />
               <Route exact path='/random' component={Random} />
               <Route exact path='/categories' component={Categories} />
               <Route path='/category/:name' component={CategoryDrinks} />
+              <Route exact path='/cocktail/:id' component={Cocktail} />
               <Route exact path='/about' component={About} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </div>

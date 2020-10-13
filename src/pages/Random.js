@@ -1,7 +1,8 @@
 import React from 'react';
 import CocktailData from '../components/Cocktails/CocktailData';
+
 import CocktailService from '../services/CocktailService';
-import withData from '../components/hoc-helpers/with-data';
+import withData from '../hoc-helpers/withData';
 
 const { getRandom } = CocktailService;
 

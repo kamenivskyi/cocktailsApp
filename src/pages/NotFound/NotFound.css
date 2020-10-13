@@ -1,0 +1,17 @@
+.not-found-page {
+  text-align: center;
+}
+
+.not-found-page .title {
+  font-size: 28px;
+}
+
+.not-found-page .error-code {
+  font-size: 70px;
+  padding: 40px 0;
+  color: #ce1313;
+}
+
+.not-found-page .sad-smile {
+  font-size: 50px;
+}
