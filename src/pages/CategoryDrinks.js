@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CocktailItem from '../components/Cocktails/CocktailItem';
 import Spinner from '../components/layout/Spinner';
 import CocktailService from '../services/CocktailService';
+import formatCategory from '../utils/formatCategory'
 
 const CategoryDrinks = ({ match }) => {
   const [drinks, setDrinks] = useState([]);
@@ -14,7 +15,9 @@ const CategoryDrinks = ({ match }) => {
     let cancelled = false;
 
     const getDrinks = category => {
-      getCategoryDrinks(category).then(items => {
+      const formatedCategory = formatCategory(category, '_', '/');
+
+      getCategoryDrinks(formatedCategory).then(items => {
         if (!cancelled) {
           setDrinks(items);
           setLoading(false);
