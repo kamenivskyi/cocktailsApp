@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import CocktailItem from '../components/Cocktails/CocktailItem';
+import CocktailItem from '../components/cocktails/CocktailItem';
 import Spinner from '../components/layout/Spinner';
 import CocktailService from '../services/CocktailService';
 import formatCategory from '../utils/formatCategory'
@@ -28,6 +28,7 @@ const CategoryDrinks = ({ match }) => {
     getDrinks(match.params.name);
 
     return () => { cancelled = true };
+
   }, []);
 
   if (loading) {

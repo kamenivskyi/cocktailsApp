@@ -36,7 +36,7 @@ const Cocktail = ({ match }) => {
     return <Spinner />
   }
 
-  return <CocktailData cocktailInfo={data} loading={loading} />;
+  return <CocktailData data={data} loading={loading} />;
 }
 
 export default Cocktail;

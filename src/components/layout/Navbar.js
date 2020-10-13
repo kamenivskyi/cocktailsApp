@@ -1,7 +1,8 @@
 import React from 'react';
-import cocktail from '../../assets/cocktail.png';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../layout/Button';
+
+import cocktail from '../../assets/cocktail.png';
 
 const Navbar = () => {
   return (

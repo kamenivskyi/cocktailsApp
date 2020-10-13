@@ -5,7 +5,7 @@ import CocktailService from './services/CocktailService';
 
 import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
-import Cocktail from './components/Cocktails/Cocktail';
+import Cocktail from './components/cocktails/Cocktail';
 
 import Home from './pages/Home';
 import Random from './pages/Random';
