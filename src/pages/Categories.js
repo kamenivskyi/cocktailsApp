@@ -38,16 +38,16 @@ const Categories = () => {
 
   return (
     <div className='list-group'>
-      {items && items.map(({ strCategory }) => {
-        const category = formatCategory(strCategory, '/', '_');
+      {items && items.map(({ category }) => {
+        const formattedCategory = formatCategory(category, '/', '_');
 
         return (
           <Link
-            to={`/category/${category}`}
+            to={`/category/${formattedCategory}`}
             className='list-group-item list-group-item-action'
-            key={strCategory}
+            key={category}
           >
-            {strCategory}
+            {category}
           </Link>
         );
       })}

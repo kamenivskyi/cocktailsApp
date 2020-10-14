@@ -1,7 +1,7 @@
 class CocktailService {
   _apiBase = 'https://www.thecocktaildb.com/api/json/v1/1';
 
-  async getResource(url) {
+  async _getResource(url) {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
@@ -9,32 +9,42 @@ class CocktailService {
     }
     return await res.json();
   }
+
   getRandom = async () => {
-    const random = await this.getResource(`/random.php`);
+    const random = await this._getResource(`/random.php`);
 
-    return this._normalizeDrink(random.drinks[0]);
+    return this._normalizeDrinkObject(random.drinks[0]);
   };
+
   getDrinkById = async id => {
-    const res = await this.getResource(`/lookup.php?i=${id}`);
+    const res = await this._getResource(`/lookup.php?i=${id}`);
 
-    return this._normalizeDrink(res.drinks[0]);
+    return this._normalizeDrinkObject(res.drinks[0]);
   };
+
   getDrinksByName = async name => {
-    const res = await this.getResource(`/search.php?s=${name}`);
-    console.log(res.drinks.map(drinkObj => this._normalizeDrink(drinkObj)))
+    const res = await this._getResource(`/search.php?s=${name}`);
 
-    return res.drinks;
+    return res.drinks.map(drinkObj => this._normalizeDrinkObject(drinkObj));
   };
+
   getCategories = async () => {
-    const categories = await this.getResource('/list.php?c=list');
-    return categories.drinks;
-  };
-  getCategoryDrinks = async category => {
-    const res = await this.getResource(`/filter.php?c=${category}`);
-    return res.drinks;
+    const categories = await this._getResource('/list.php?c=list');
+
+    return categories.drinks.map(category => this._normalizeCategory(category));
   };
 
-  _normalizeDrink = (object) => {
+  getCategoryDrinks = async category => {
+    const res = await this._getResource(`/filter.php?c=${category}`);
+
+    return res.drinks.map(drinkObj => this._normalizeDrinkObject(drinkObj));
+  };
+
+  _normalizeCategory = (categories) => ({
+    category: categories.strCategory
+  })
+
+  _normalizeDrinkObject = (drinkObj) => {
     const {
       idDrink,
       strDrink,
@@ -45,7 +55,7 @@ class CocktailService {
       strCategory,
       strIBA,
       ...restProps
-    } = object;
+    } = drinkObj;
 
     const tempIngredients = this._getCorrectProps(restProps, 'strIngredient');
     const tempMeasures = this._getCorrectProps(restProps, 'strMeasure');

@@ -13,33 +13,28 @@ const Random = props => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+
     setLoading(true);
 
     getRandom().then(data => {
-      setData(data);
-      setLoading(false);
+      if (!cancelled) {
+        setData(data);
+        setLoading(false);
+      }
     })
-    return () => {
-
-    }
+    return () => { cancelled = true };
   }, []);
-
-  console.log(data)
-  // const { data, loading } = useRandomDrink();
-
-  // console.log(data.drinks);
 
   if (loading) {
     return <Spinner />
   }
 
-  // console.log(props)
-
   if (data) {
     return <CocktailData data={data} loading={loading} />;
-  } else {
-    return null;
-  }
+  } 
+  
+  return;
 };
 
 export default Random;

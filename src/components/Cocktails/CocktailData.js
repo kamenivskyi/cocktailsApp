@@ -25,7 +25,7 @@ const CocktailData = props => {
   const renderIngredients = () => (
     <ul>
       {ingredsAndMeasures.map(({ ingredient, measure }) => (
-        <li key={ingredient}>
+        <li key={Math.random()}>
           <span>
             {ingredient} {measure ? `(${measure})` : ''}
           </span>

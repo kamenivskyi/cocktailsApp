@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import CocktailItem from './CocktailItem';
 import Spinner from '../layout/Spinner';
 
-const Cocktails = ({ cocktails, loading }) => {
+const Cocktails = ({ drinks, loading }) => {
   if (loading) {
     return <Spinner />;
 
-  } else if (!cocktails) {
+  } else if (!drinks) {
     return (
       <div className='row justify-content-center'>
         <h2 className='text-danger mt-3'>
@@ -20,15 +20,15 @@ const Cocktails = ({ cocktails, loading }) => {
 
   return (
     <div className='row'>
-      {cocktails.map(item => {
-        return <CocktailItem item={item} key={item.idDrink} />;
+      {drinks.map(item => {
+        return <CocktailItem item={item} key={item.name} />;
       })}
     </div>
   );
 };
 
 Cocktails.propTypes = {
-  cocktails: PropTypes.array,
+  drinks: PropTypes.array,
   loading: PropTypes.bool.isRequired
 };
 

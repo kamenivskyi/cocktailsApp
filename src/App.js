@@ -14,8 +14,6 @@ import CategoryDrinks from './pages/CategoryDrinks';
 import About from './pages/About';
 import NotFound from './pages/NotFound/NotFound';
 
-// import useFetchDrinks from './hooks/useFetchDrinks';
-
 import './App.css';
 
 const App = () => {
@@ -25,13 +23,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [drinks, setDrinks] = useState([]);
 
-  const DEFAULT_DRINK_NAME = 'coffee';
-
-  // const {
-  //   data: { drinks }, loading, doFetch
-  // } = useFetchDrinks(`/search.php?s=${DEFAULT_DRINK_NAME}`);
-
-  // console.log(drinks)
+  const DEFAULT_DRINK_NAME = 'tequila';
 
   const { getDrinksByName } = CocktailService;
 
@@ -48,6 +40,7 @@ const App = () => {
 
   const onError = err => {
     setError(true);
+    setLoading(false);
     console.log('Error: ', err);
   };
 
@@ -67,8 +60,8 @@ const App = () => {
     if (!term.length) {
       return items;
     }
-    const visibleItems = items.filter(({ strDrink }) => {
-      return strDrink.toLowerCase().includes(term.toLowerCase());
+    const visibleItems = items.filter(({ name }) => {
+      return name.toLowerCase().includes(term.toLowerCase());
     });
 
     return visibleItems;
@@ -97,7 +90,7 @@ const App = () => {
                     getDrinks={getDrinks}
                     generateAlert={generateAlert}
                     onFilterChange={onFilterChange}
-                    cocktails={visibleDrinks}
+                    drinks={visibleDrinks}
                     loading={loading}
                     {...props}
                   />

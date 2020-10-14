@@ -38,7 +38,7 @@ const CategoryDrinks = ({ match }) => {
   return (
     <div className='row'>
       {drinks.map(drink => (
-        <CocktailItem item={drink} key={drink.strDrink} />
+        <CocktailItem item={drink} key={drink.name} />
       ))}
     </div>
   );
