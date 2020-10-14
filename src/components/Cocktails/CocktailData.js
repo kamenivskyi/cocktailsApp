@@ -4,29 +4,15 @@ import PropTypes from 'prop-types';
 
 const CocktailData = props => {
   const {
-    strDrink,
-    strDrinkThumb,
-    strInstructions,
-    strAlcoholic,
-    strGlass,
-    strCategory,
-    strIBA,
-    ...restProps
+    name,
+    imgUrl,
+    instructions,
+    type,
+    glass,
+    category,
+    iba,
+    ingredsAndMeasures
   } = props.data;
-
-  const getCorrectPropsValues = (arr, propName) => {
-    const correctProps = [];
-
-    for (let key in arr) {
-      const isCorrectProp = key.includes(propName) && arr[key];
-
-      if (isCorrectProp) {
-        correctProps.push(arr[key]);
-      }
-    }
-
-    return correctProps;
-  }
 
   const getBadgeClass = (compareA, compareB) => {
     const classes = ['badge', 'mr-3'];
@@ -38,43 +24,38 @@ const CocktailData = props => {
 
   const renderIngredients = () => (
     <ul>
-      {ingredients.map((ingredient, idx) => (
-        <li key={Math.random()}>
+      {ingredsAndMeasures.map(({ ingredient, measure }) => (
+        <li key={ingredient}>
           <span>
-            {ingredient} {measures[idx] && `(${measures[idx]})`}
+            {ingredient} {measure ? `(${measure})` : ''}
           </span>
         </li>
       ))}
     </ul>
   );
 
-  const ingredients = getCorrectPropsValues(restProps, 'strIngredient');
-  const measures = getCorrectPropsValues(restProps, 'strMeasure');
-  const badgeClasses = getBadgeClass(strAlcoholic, 'Alcoholic');
-
-  console.log(badgeClasses);
-  // console.log(measures);
+  const badgeClasses = getBadgeClass(type, 'Alcoholic');
 
   return (
     <div className='row'>
       <div className='col-md-4 mb-3'>
-        <img src={strDrinkThumb} alt={strDrink} />
+        <img src={imgUrl} alt={name} />
       </div>
       <div className='col-md-8'>
         <div className='card p-3'>
-          <h5>{strDrink}</h5>
+          <h5>{name}</h5>
           <p>
             <span className='text-info font-weight-bold'>Instruction:</span>{' '}
-            {strInstructions}
+            {instructions}
           </p>
           <p>
-            Category: <span className='badge badge-primary'>{strCategory}</span>
+            Category: <span className='badge badge-primary'>{category}</span>
           </p>
           <p>
-            Type: <span className={badgeClasses}>{strAlcoholic}</span>
+            Type: <span className={badgeClasses}>{type}</span>
             Glass:{' '}
-            <span className='badge badge-secondary mr-3'>{strGlass}</span>
-            {strIBA && <span>IBA: <span className='badge badge-success mr-3'> {strIBA}</span></span>}
+            <span className='badge badge-secondary mr-3'>{glass}</span>
+            {iba && <span>IBA: <span className='badge badge-success mr-3'> {iba}</span></span>}
           </p>
           <div>
             Ingredients:

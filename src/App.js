@@ -14,18 +14,27 @@ import CategoryDrinks from './pages/CategoryDrinks';
 import About from './pages/About';
 import NotFound from './pages/NotFound/NotFound';
 
+// import useFetchDrinks from './hooks/useFetchDrinks';
+
 import './App.css';
 
 const App = () => {
   const [term, setTerm] = useState('');
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [drinks, setDrinks] = useState([]);
+
+  const DEFAULT_DRINK_NAME = 'coffee';
+
+  // const {
+  //   data: { drinks }, loading, doFetch
+  // } = useFetchDrinks(`/search.php?s=${DEFAULT_DRINK_NAME}`);
+
+  // console.log(drinks)
 
   const { getDrinksByName } = CocktailService;
 
-  const DEFAULT_DRINK_NAME = 'coffee';
 
   useEffect(() => {
     let cancell = false;
@@ -43,6 +52,8 @@ const App = () => {
   };
 
   const getDrinks = name => {
+    setLoading(true);
+
     getDrinksByName(name).then(drinks => {
       setLoading(false);
       setDrinks(drinks);
