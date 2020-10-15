@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 const CocktailItem = ({ item }) => {
   const { name, imgUrl, id, category } = item;
 
-  // if (!item) {
-  //   return;
-  // }
-  
+  console.log(item)
+
   return (
     <div className='col-12 col-sm-6 col-md-4 col-lg-3 mb-4'>
       <div className='card'>
@@ -16,7 +14,10 @@ const CocktailItem = ({ item }) => {
         <div className='card-body'>
           <h5 className='card-title'>{name}</h5>
           <p className='card-text'>Category: {category}</p>
-          <Link to={`/cocktail/${id}`} className='btn btn-secondary'>
+          <Link
+            to={`/cocktail/${id}`}
+            className='btn btn-outline-primary btn-sm'
+          >
             More details
           </Link>
         </div>

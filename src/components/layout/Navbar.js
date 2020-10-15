@@ -6,7 +6,7 @@ import cocktail from '../../assets/cocktail.png';
 
 const Navbar = () => {
   return (
-    <nav className='navbar navbar-expand-sm sticky-top navbar-dark bg-dark'>
+    <nav className='navbar navbar-expand-sm sticky-top navbar-dark bg-primary'>
       <NavLink to='/' className='navbar-brand'>
         <img src={cocktail} alt='Drink' />
         Cocktail-app

@@ -38,7 +38,7 @@ const App = () => {
     return () => { cancell = true };
   }, []);
 
-  const onError = err => {
+  const handleError = err => {
     setError(true);
     setLoading(false);
     console.log('Error: ', err);
@@ -51,7 +51,7 @@ const App = () => {
       setLoading(false);
       setDrinks(drinks);
 
-    }).catch(onError);
+    }).catch(handleError);
   };
 
   const onFilterChange = term => setTerm(term);

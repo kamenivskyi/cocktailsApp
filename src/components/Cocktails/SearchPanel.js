@@ -5,6 +5,8 @@ import { Button } from '../layout/Button';
 const SearchPanel = ({ getDrinks, generateAlert }) => {
   const [value, setValue] = useState('');
 
+  const alertText = 'This field can not be empty! Enter the name of the drink!';
+
   const handleChange = ({ target: { value } }) => setValue(value);
 
   const handleSubmit = event => {
@@ -13,7 +15,7 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
     if (value.trim()) {
       getDrinks(value);
     } else {
-      generateAlert('Please enter something', 'danger');
+      generateAlert(alertText, 'warning');
     }
 
     setValue('');
@@ -32,7 +34,12 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
           value={value}
         />
         <div className='input-group-append'>
-          <Button className='btn btn-outline-secondary'>Search</Button>
+          <Button
+            type='submit'
+            className='btn btn-outline-primary btn-sm'
+          >
+            Search
+          </Button>
         </div>
       </div>
     </form>

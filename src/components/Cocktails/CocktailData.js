@@ -63,7 +63,7 @@ const CocktailData = props => {
           </div>
         </div>
 
-        <NavLink className='btn btn-dark my-3' to='/'>
+        <NavLink className='btn btn-primary btn-sm my-3' to='/'>
           Back to home
         </NavLink>
       </div>

@@ -2,13 +2,13 @@ img {
   max-width: 100%;
   height: auto;
 }
-body {
-  font-family: 'Raleway', sans-serif;
-  background-color: #efefef;
-  min-height: 100vh;
-  background-repeat: no-repeat;
-  background-size: cover;
+
+.App .navbar {
+  padding: 0.4rem 1rem;
 }
+
 .navbar-brand {
   font-family: 'Segoe script', cursive, Arial, sans-serif;
+  text-transform: none;
 }
+
