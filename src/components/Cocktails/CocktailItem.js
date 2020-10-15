@@ -13,7 +13,7 @@ const CocktailItem = ({ item }) => {
         <img src={imgUrl} className='card-img-top' alt={name} />
         <div className='card-body'>
           <h5 className='card-title'>{name}</h5>
-          <p className='card-text'>Category: {category}</p>
+          {category && <p className='card-text'>Category: {category}</p>}
           <Link
             to={`/cocktail/${id}`}
             className='btn btn-outline-primary btn-sm'

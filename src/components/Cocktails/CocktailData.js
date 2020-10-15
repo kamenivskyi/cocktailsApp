@@ -14,7 +14,7 @@ const CocktailData = props => {
     ingredsAndMeasures
   } = props.data;
 
-  const getBadgeClass = (compareA, compareB) => {
+  const getTypeBadgeClass = (compareA, compareB) => {
     const classes = ['badge', 'mr-3'];
 
     classes.push(compareA === compareB ? 'badge-danger' : 'badge-success')
@@ -34,7 +34,7 @@ const CocktailData = props => {
     </ul>
   );
 
-  const badgeClasses = getBadgeClass(type, 'Alcoholic');
+  const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
 
   return (
     <div className='row'>
@@ -52,9 +52,9 @@ const CocktailData = props => {
             Category: <span className='badge badge-primary'>{category}</span>
           </p>
           <p>
-            Type: <span className={badgeClasses}>{type}</span>
+            Type: <span className={typeBadgeClasses}>{type}</span>
             Glass:{' '}
-            <span className='badge badge-secondary mr-3'>{glass}</span>
+            <span className='badge badge-info mr-3'>{glass}</span>
             {iba && <span>IBA: <span className='badge badge-success mr-3'> {iba}</span></span>}
           </p>
           <div>

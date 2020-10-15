@@ -23,7 +23,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [drinks, setDrinks] = useState([]);
 
-  const DEFAULT_DRINK_NAME = 'tequila';
+  const DEFAULT_DRINK_NAME = 'martini';
 
   const { getDrinksByName } = CocktailService;
 
