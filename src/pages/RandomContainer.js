@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import DrinkView from '../components/drinks/DrinkView';
+import ErrorBoundary from '../components/helpers/ErrorBoundary';
 import CocktailService from '../services/CocktailService';
 
 const { getRandom } = CocktailService;
@@ -25,8 +26,11 @@ const RandomContainer = (props) => {
   }, []);
 
 
-  return <DrinkView data={data} loading={loading} />;
-
+  return (
+    <ErrorBoundary>
+      <DrinkView data={data} loading={loading} />
+    </ErrorBoundary>
+  );
 };
 
 export default RandomContainer;

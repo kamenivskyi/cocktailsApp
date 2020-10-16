@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import DrinkView from '../components/drinks/DrinkView';
+import ErrorBoundary from '../components/helpers/ErrorBoundary';
 import CocktailService from '../services/CocktailService';
 
 const DrinkContainer = ({ match }) => {
@@ -29,7 +30,11 @@ const DrinkContainer = ({ match }) => {
     return () => { cancelled = true };
   }, []);
 
-  return <DrinkView data={data} loading={loading} />;
+  return (
+    <ErrorBoundary>
+      <DrinkView data={data} loading={loading} />
+    </ErrorBoundary>
+  );
 }
 
 export default DrinkContainer;

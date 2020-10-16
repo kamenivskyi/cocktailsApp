@@ -40,6 +40,7 @@ const DrinkView = ({ data }) => {
 
   const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
 
+
   return (
     <div className='row'>
       <div className='col-md-4 mb-3'>

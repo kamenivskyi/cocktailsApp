@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Filters = ({ onFilterChange }) => {
+const Filter = ({ onFilterChange }) => {
   const [value, setValue] = useState('');
 
   const handleChange = ({ target: { value } }) => {
@@ -24,11 +24,11 @@ const Filters = ({ onFilterChange }) => {
   );
 }
 
-Filters.propTypes = {
+Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired
 };
 
-export default Filters;
+export default Filter;
 
 
 

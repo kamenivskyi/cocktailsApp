@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
-import CocktailService from './services/CocktailService';
-
-import Navbar from './components/layout/Navbar/Navbar';
-import Alert from './components/layout/Alert';
-
 import Home from './pages/Home';
 import DrinkContainer from './pages/DrinkContainer';
 import RandomContainer from './pages/RandomContainer';
@@ -13,6 +8,11 @@ import CategoriesContainer from './pages/CategoriesContainer';
 import CategoryDrinksContainer from './pages/CategoryDrinksContainer';
 import About from './pages/About';
 import NotFound from './pages/NotFound/NotFound';
+import Navbar from './components/layout/Navbar/Navbar';
+import Alert from './components/layout/Alert';
+import ErrorBoundary from './components/helpers/ErrorBoundary';
+
+import CocktailService from './services/CocktailService';
 
 import './App.css';
 
@@ -75,38 +75,40 @@ const App = () => {
   const visibleDrinks = filterCocktails(items, term);
 
   return (
-    <Router>
-      <div className='App'>
-        <Navbar />
-        <div className='container-fluid'>
-          <div className='pt-4'>
-            <Alert alert={alert} />
-            <Switch>
-              <Route
-                exact
-                path='/'
-                render={props => (
-                  <Home
-                    getDrinks={getDrinks}
-                    generateAlert={generateAlert}
-                    onFilterChange={onFilterChange}
-                    items={visibleDrinks}
-                    loading={loading}
-                    {...props}
-                  />
-                )}
-              />
-              <Route exact path='/random' component={RandomContainer} />
-              <Route exact path='/categories' component={CategoriesContainer} />
-              <Route exact path='/category/:name' component={CategoryDrinksContainer} />
-              <Route exact path='/drink/:id' component={DrinkContainer} />
-              <Route exact path='/about' component={About} />
-              <Route component={NotFound} />
-            </Switch>
+    <ErrorBoundary>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className='container-fluid'>
+            <div className='pt-4'>
+              <Alert alert={alert} />
+              <Switch>
+                <Route
+                  exact
+                  path='/'
+                  render={props => (
+                    <Home
+                      getDrinks={getDrinks}
+                      generateAlert={generateAlert}
+                      onFilterChange={onFilterChange}
+                      items={visibleDrinks}
+                      loading={loading}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route exact path='/random' component={RandomContainer} />
+                <Route exact path='/categories' component={CategoriesContainer} />
+                <Route exact path='/category/:name' component={CategoryDrinksContainer} />
+                <Route exact path='/drink/:id' component={DrinkContainer} />
+                <Route exact path='/about' component={About} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ErrorBoundary>
   );
 };
 

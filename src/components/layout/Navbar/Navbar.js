@@ -28,7 +28,7 @@ const Navbar = () => (
         <li className='nav-item'>
           <NavLink to='/' exact className='nav-link'>
             Home
-            </NavLink>
+          </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink to='/random' className='nav-link'>

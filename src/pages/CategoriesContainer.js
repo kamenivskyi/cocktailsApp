@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import CocktailService from '../services/CocktailService';
 import Categories from '../components/drinks/Categories';
+import ErrorBoundary from '../components/helpers/ErrorBoundary';
 
 const CategoriesContainer = () => {
   const [items, setItems] = useState(null);
@@ -32,7 +33,9 @@ const CategoriesContainer = () => {
   const handleError = (error) => console.log(error);
 
   return (
-    <Categories items={items} loading={loading} />
+    <ErrorBoundary>
+      <Categories items={items} loading={loading} />
+    </ErrorBoundary>
   );
 }
 

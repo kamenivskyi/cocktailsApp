@@ -1,16 +1,18 @@
 import React from 'react';
+
 import SearchPanel from '../components/drinks/SearchPanel';
-import Filters from '../components/drinks/Filters';
+import Filter from '../components/drinks/Filter';
 import DrinksList from '../components/drinks/DrinksList';
+import ErrorBoundary from '../components/helpers/ErrorBoundary';
 
 const Home = ({ getDrinks, generateAlert, onFilterChange, ...restProps }) => (
-  <>
+  <ErrorBoundary>
     <div className='form-row'>
       <SearchPanel getDrinks={getDrinks} generateAlert={generateAlert} />
-      <Filters onFilterChange={onFilterChange} />
+      <Filter onFilterChange={onFilterChange} />
     </div>
     <DrinksList {...restProps} />
-  </>
+  </ErrorBoundary>
 );
 
 export default Home;

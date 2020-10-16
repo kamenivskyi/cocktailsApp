@@ -17,7 +17,7 @@ const DrinklItem = ({ item }) => {
             className='btn btn-outline-primary btn-sm'
           >
             More details
-            </Link>
+          </Link>
         </div>
       </div>
     </div>

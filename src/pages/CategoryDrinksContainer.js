@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import DrinksList from '../components/drinks/DrinksList';
+import ErrorBoundary from '../components/helpers/ErrorBoundary';
 import CocktailService from '../services/CocktailService';
 import formatCategory from '../utils/formatCategory'
 
@@ -31,7 +32,9 @@ const CategoryDrinksContainer = ({ match }) => {
   }, []);
 
   return (
-    <DrinksList items={drinks} loading={loading} />
+    <ErrorBoundary>
+      <DrinksList items={drinks} loading={loading} />
+    </ErrorBoundary>
   );
 }
 
