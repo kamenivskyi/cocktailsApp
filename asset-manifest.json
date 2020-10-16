@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/cocktailsApp/static/css/main.d2e3d545.chunk.css",
+    "main.js": "/cocktailsApp/static/js/main.ae574ced.chunk.js",
+    "main.js.map": "/cocktailsApp/static/js/main.ae574ced.chunk.js.map",
+    "runtime-main.js": "/cocktailsApp/static/js/runtime-main.17654650.js",
+    "runtime-main.js.map": "/cocktailsApp/static/js/runtime-main.17654650.js.map",
+    "static/js/2.6386df88.chunk.js": "/cocktailsApp/static/js/2.6386df88.chunk.js",
+    "static/js/2.6386df88.chunk.js.map": "/cocktailsApp/static/js/2.6386df88.chunk.js.map",
+    "index.html": "/cocktailsApp/index.html",
+    "precache-manifest.1593952a41e8fbd2b143887a36ea4fbf.js": "/cocktailsApp/precache-manifest.1593952a41e8fbd2b143887a36ea4fbf.js",
+    "service-worker.js": "/cocktailsApp/service-worker.js",
+    "static/css/main.d2e3d545.chunk.css.map": "/cocktailsApp/static/css/main.d2e3d545.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.17654650.js",
+    "static/js/2.6386df88.chunk.js",
+    "static/css/main.d2e3d545.chunk.css",
+    "static/js/main.ae574ced.chunk.js"
+  ]
+}
