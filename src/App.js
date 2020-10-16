@@ -11,7 +11,6 @@ import NotFound from './pages/NotFound/NotFound';
 import Navbar from './components/layout/Navbar/Navbar';
 import Alert from './components/layout/Alert';
 import ErrorBoundary from './components/helpers/ErrorBoundary';
-
 import CocktailService from './services/CocktailService';
 
 import './App.css';

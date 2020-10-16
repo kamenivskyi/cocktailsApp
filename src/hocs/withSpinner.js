@@ -6,10 +6,10 @@ const withSpinner = (WrappedComponent) => {
   return ({ loading, ...rest }) => {
 
     if (loading) {
-      return <Spinner />
+      return <Spinner />;
     }
 
-    return <WrappedComponent {...rest} />
+    return <WrappedComponent {...rest} />;
   }
 }
 
