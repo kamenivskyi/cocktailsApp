@@ -9,9 +9,9 @@ const CategoryDrinksContainer = ({ match }) => {
   const [drinks, setDrinks] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { getCategoryDrinks } = CocktailService;
 
   useEffect(() => {
+    const { getCategoryDrinks } = CocktailService;
     let cancelled = false;
 
     const getDrinks = category => {
@@ -29,7 +29,7 @@ const CategoryDrinksContainer = ({ match }) => {
 
     return () => { cancelled = true };
 
-  }, []);
+  }, [match.params.name]);
 
   return (
     <ErrorBoundary>

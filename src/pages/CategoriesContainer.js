@@ -8,10 +8,11 @@ const CategoriesContainer = () => {
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { getCategories } = CocktailService;
 
   useEffect(() => {
+    const { getCategories } = CocktailService;
     let cancelled = false;
+
     setLoading(true);
 
     const generateCategories = () => {
@@ -28,7 +29,7 @@ const CategoriesContainer = () => {
     generateCategories();
 
     return () => { cancelled = true };
-  }, [])
+  }, []);
 
   const handleError = (error) => console.log(error);
 

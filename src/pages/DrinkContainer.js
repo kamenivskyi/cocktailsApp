@@ -9,9 +9,9 @@ const DrinkContainer = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const { getDrinkById } = CocktailService;
 
   useEffect(() => {
+    const { getDrinkById } = CocktailService;
     let cancelled = false;
 
     const onMoreDetails = id => {
@@ -22,17 +22,20 @@ const DrinkContainer = ({ match }) => {
             setLoading(false);
           }
         })
-        .catch((error) => setError(error));
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
+        });
     };
 
     onMoreDetails(match.params.id);
 
     return () => { cancelled = true };
-  }, []);
+  }, [match.params.id]);
 
   return (
     <ErrorBoundary>
-      <DrinkView data={data} loading={loading} />
+      <DrinkView data={data} loading={loading} error={error} />
     </ErrorBoundary>
   );
 }

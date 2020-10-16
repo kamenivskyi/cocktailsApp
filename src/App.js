@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -20,12 +20,23 @@ const App = () => {
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
 
   const DEFAULT_DRINK_NAME = 'martini';
 
-  const { getDrinksByName } = CocktailService;
+  const getDrinks = useCallback((name) => {
+    const { getDrinksByName } = CocktailService;
 
+    setLoading(true);
+
+    getDrinksByName(name).then(drinks => {
+      setLoading(false);
+      setError(false);
+      setItems(drinks);
+
+    }).catch(handleError);
+
+  }, []);
 
   useEffect(() => {
     let cancell = false;
@@ -35,7 +46,7 @@ const App = () => {
     }
 
     return () => { cancell = true };
-  }, []);
+  }, [getDrinks]);
 
   const handleError = err => {
     setError(true);
@@ -43,15 +54,6 @@ const App = () => {
     console.log('Error: ', err);
   };
 
-  const getDrinks = name => {
-    setLoading(true);
-
-    getDrinksByName(name).then(drinks => {
-      setLoading(false);
-      setItems(drinks);
-
-    }).catch(handleError);
-  };
 
   const onFilterChange = term => setTerm(term);
 
@@ -91,6 +93,7 @@ const App = () => {
                       generateAlert={generateAlert}
                       onFilterChange={onFilterChange}
                       items={visibleDrinks}
+                      error={error}
                       loading={loading}
                       {...props}
                     />

@@ -40,37 +40,42 @@ const DrinkView = ({ data }) => {
 
   const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
 
-
   return (
-    <div className='row'>
-      <div className='col-md-4 mb-3'>
-        <img src={imgUrl} alt={name} />
-      </div>
-      <div className='col-md-8'>
-        <div className='card p-3'>
-          <h5>{name}</h5>
-          <p>
-            <span className='text-info font-weight-bold'>Instruction:</span>{' '}
-            {instructions}
-          </p>
-          <p>
-            Category: <span className='badge badge-primary'>{category}</span>
-          </p>
-          <p>
-            Type: <span className={typeBadgeClasses}>{type}</span>
-            Glass:{' '}
-            <span className='badge badge-info mr-3'>{glass}</span>
-            {iba && <span>IBA: <span className='badge badge-success mr-3'> {iba}</span></span>}
-          </p>
-          <div>
-            Ingredients:
+    <div className='card'>
+      <div className='row'>
+        <div className="col-md-4">
+          <img className='card-img' src={imgUrl} alt={name} />
+        </div>
+        <div className="col-md-8">
+          <div className="card-body">
+            <h5 className='card-title'>{name}</h5>
+            <p className='card-text'>
+              <span className='text-info font-weight-bold'>Instruction:</span>{' '}
+              {instructions}
+            </p>
+            <p className='card-text'>
+              Category: <span className='badge badge-primary'>{category}</span>
+            </p>
+            <p className='card-text'>
+              Type: <span className={typeBadgeClasses}>{type}</span>
+            </p>
+            {iba && (
+              <p className='card-text'>IBA: {' '}
+                <span className='badge badge-success mr-3'> {iba}</span>
+              </p>
+            )}
+            <p className='card-text'>
+              Glass:{' '}<span className='badge badge-info mr-3'>{glass}</span>
+            </p>
+            <div>
+              Ingredients:
             {renderIngredients()}
+            </div>
+            <NavLink className='btn btn-primary btn-sm my-3' to='/'>
+              Back to home
+            </NavLink>
           </div>
         </div>
-
-        <NavLink className='btn btn-primary btn-sm my-3' to='/'>
-          Back to home
-        </NavLink>
       </div>
     </div>
   );
