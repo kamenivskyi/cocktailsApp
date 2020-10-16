@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 
 const Alert = ({ alert }) => (
   alert !== null && (
@@ -7,5 +8,12 @@ const Alert = ({ alert }) => (
     </div>
   )
 );
+
+Alert.propTypes = {
+  alert: PropTypes.shape({
+    type: PropTypes.string,
+    alert: PropTypes.string,
+  }),
+};
 
 export default Alert;

@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withSpinner } from '../../hoc-helpers';
+import { withSpinner } from '../../hocs';
 import formatCategory from '../../utils/formatCategory';
-
 
 const Categories = ({ items }) => (
   <div className='list-group'>
@@ -22,6 +22,12 @@ const Categories = ({ items }) => (
     })}
   </div>
 );
+
+Categories.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string.isRequired,
+  })),
+};
 
 const CategoriesWithSpinner = withSpinner(Categories);
 

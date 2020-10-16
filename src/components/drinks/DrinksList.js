@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import DrinklItem from './DrinkItem';
 import { withSpinner } from '../../hocs';
+import { drinkViewPropTypes } from '../../utils/props-types/drinkViewPropTypes';
 
 const DrinksList = ({ items }) => (
   <div className='row'>
@@ -13,7 +14,7 @@ const DrinksList = ({ items }) => (
 );
 
 DrinksList.propTypes = {
-  drinks: PropTypes.array,
+  drinks: PropTypes.arrayOf(drinkViewPropTypes),
 };
 
 const DrinksListWithSpinner = withSpinner(DrinksList);

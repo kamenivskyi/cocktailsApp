@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import { withSpinner } from '../../hocs';
+import { drinkViewPropTypes } from '../../utils/props-types/drinkViewPropTypes';
 
 const DrinkView = ({ data }) => {
   const {
@@ -14,7 +15,6 @@ const DrinkView = ({ data }) => {
     iba,
     ingredsAndMeasures
   } = data;
-
 
   const getTypeBadgeClass = (compareA, compareB) => {
     const classes = ['badge', 'mr-3'];
@@ -74,8 +74,9 @@ const DrinkView = ({ data }) => {
     </div>
   );
 };
+
 DrinkView.propTypes = {
-  data: PropTypes.object
+  data: drinkViewPropTypes
 };
 
 const DrinkViewWithSpinner = withSpinner(DrinkView);
