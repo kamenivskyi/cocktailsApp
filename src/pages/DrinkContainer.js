@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import CocktailData from './CocktailData';
-import Spinner from '../layout/Spinner';
+import DrinkView from '../components/drinks/DrinkView';
+import CocktailService from '../services/CocktailService';
 
-import CocktailService from '../../services/CocktailService';
-
-const Cocktail = ({ match }) => {
+const DrinkContainer = ({ match }) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -31,12 +29,7 @@ const Cocktail = ({ match }) => {
     return () => { cancelled = true };
   }, []);
 
-
-  if (loading) {
-    return <Spinner />
-  }
-
-  return <CocktailData data={data} loading={loading} />;
+  return <DrinkView data={data} loading={loading} />;
 }
 
-export default Cocktail;
+export default DrinkContainer;

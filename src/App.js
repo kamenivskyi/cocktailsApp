@@ -5,12 +5,12 @@ import CocktailService from './services/CocktailService';
 
 import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
-import Cocktail from './components/cocktails/Cocktail';
 
 import Home from './pages/Home';
-import Random from './pages/Random';
-import Categories from './pages/Categories';
-import CategoryDrinks from './pages/CategoryDrinks';
+import DrinkContainer from './pages/DrinkContainer';
+import RandomContainer from './pages/RandomContainer';
+import CategoriesContainer from './pages/CategoriesContainer';
+import CategoryDrinksContainer from './pages/CategoryDrinksContainer';
 import About from './pages/About';
 import NotFound from './pages/NotFound/NotFound';
 
@@ -21,7 +21,7 @@ const App = () => {
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [drinks, setDrinks] = useState([]);
+  const [items, setItems] = useState([]);
 
   const DEFAULT_DRINK_NAME = 'martini';
 
@@ -49,7 +49,7 @@ const App = () => {
 
     getDrinksByName(name).then(drinks => {
       setLoading(false);
-      setDrinks(drinks);
+      setItems(drinks);
 
     }).catch(handleError);
   };
@@ -72,7 +72,7 @@ const App = () => {
     setTimeout(() => setAlert(null), 4000);
   };
 
-  const visibleDrinks = filterCocktails(drinks, term);
+  const visibleDrinks = filterCocktails(items, term);
 
   return (
     <Router>
@@ -90,16 +90,16 @@ const App = () => {
                     getDrinks={getDrinks}
                     generateAlert={generateAlert}
                     onFilterChange={onFilterChange}
-                    drinks={visibleDrinks}
+                    items={visibleDrinks}
                     loading={loading}
                     {...props}
                   />
                 )}
               />
-              <Route exact path='/random' component={Random} />
-              <Route exact path='/categories' component={Categories} />
-              <Route path='/category/:name' component={CategoryDrinks} />
-              <Route exact path='/cocktail/:id' component={Cocktail} />
+              <Route exact path='/random' component={RandomContainer} />
+              <Route exact path='/categories' component={CategoriesContainer} />
+              <Route exact path='/category/:name' component={CategoryDrinksContainer} />
+              <Route exact path='/drink/:id' component={DrinkContainer} />
               <Route exact path='/about' component={About} />
               <Route component={NotFound} />
             </Switch>

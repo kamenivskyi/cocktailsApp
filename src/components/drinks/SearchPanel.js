@@ -28,7 +28,7 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
         <input
           type='text'
           className='form-control'
-          placeholder='Enter the name of the cocktail'
+          placeholder='Enter the name of the drink'
           aria-label='Search cocktails'
           onChange={handleChange}
           value={value}

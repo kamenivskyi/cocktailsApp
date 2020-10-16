@@ -15,7 +15,7 @@ const Filters = ({ onFilterChange }) => {
         <input
           className='form-control'
           type='text'
-          placeholder='Filter cocktails by name'
+          placeholder='Type the name of the drink to filter'
           onChange={handleChange}
           value={value}
         />

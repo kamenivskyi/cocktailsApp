@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import CocktailItem from '../components/cocktails/CocktailItem';
-import Spinner from '../components/layout/Spinner';
+import DrinksList from '../components/drinks/DrinksList';
 import CocktailService from '../services/CocktailService';
 import formatCategory from '../utils/formatCategory'
 
-const CategoryDrinks = ({ match }) => {
-  const [drinks, setDrinks] = useState([]);
+const CategoryDrinksContainer = ({ match }) => {
+  const [drinks, setDrinks] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const { getCategoryDrinks } = CocktailService;
@@ -31,17 +30,9 @@ const CategoryDrinks = ({ match }) => {
 
   }, []);
 
-  if (loading) {
-    return <Spinner />
-  }
-
   return (
-    <div className='row'>
-      {drinks.map(drink => (
-        <CocktailItem item={drink} key={drink.name} />
-      ))}
-    </div>
+    <DrinksList items={drinks} loading={loading} />
   );
 }
 
-export default CategoryDrinks;
+export default CategoryDrinksContainer;

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import CocktailData from '../components/cocktails/CocktailData';
-import Spinner from '../components/layout/Spinner';
-import useFetchDrinks, { useRandomDrink } from '../hooks/useFetchDrinks';
 
+import DrinkView from '../components/drinks/DrinkView';
 import CocktailService from '../services/CocktailService';
-// import withData from '../hoc-helpers/withData';
 
 const { getRandom } = CocktailService;
 
-const Random = props => {
+const RandomContainer = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -22,19 +19,14 @@ const Random = props => {
         setData(data);
         setLoading(false);
       }
-    })
+    }).catch(error => console.log(error));
+
     return () => { cancelled = true };
   }, []);
 
-  if (loading) {
-    return <Spinner />
-  }
 
-  if (data) {
-    return <CocktailData data={data} loading={loading} />;
-  } 
-  
-  return;
+  return <DrinkView data={data} loading={loading} />;
+
 };
 
-export default Random;
+export default RandomContainer;

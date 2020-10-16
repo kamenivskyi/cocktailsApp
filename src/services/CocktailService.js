@@ -36,7 +36,6 @@ class CocktailService {
 
   getCategoryDrinks = async category => {
     const res = await this._getResource(`/filter.php?c=${category}`);
-    console.log(res.drinks);
 
     return res.drinks.map(drinkObj => this._normalizeDrinkObject(drinkObj));
   };

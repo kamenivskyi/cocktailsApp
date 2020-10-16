@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { withSpinner } from '../../hoc-helpers';
 
-const CocktailData = props => {
+const DrinkView = ({ data }) => {
   const {
     name,
     imgUrl,
@@ -12,7 +13,8 @@ const CocktailData = props => {
     category,
     iba,
     ingredsAndMeasures
-  } = props.data;
+  } = data;
+
 
   const getTypeBadgeClass = (compareA, compareB) => {
     const classes = ['badge', 'mr-3'];
@@ -22,17 +24,19 @@ const CocktailData = props => {
     return classes.join(' ');
   }
 
-  const renderIngredients = () => (
-    <ul>
-      {ingredsAndMeasures.map(({ ingredient, measure }) => (
-        <li key={Math.random()}>
-          <span>
-            {ingredient} {measure ? `(${measure})` : ''}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
+  const renderIngredients = () => {
+    return ingredsAndMeasures && (
+      <ul>
+        {ingredsAndMeasures.map(({ ingredient, measure }) => (
+          <li key={Math.random()}>
+            <span>
+              {ingredient} {measure ? `(${measure})` : ''}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
 
@@ -70,7 +74,10 @@ const CocktailData = props => {
     </div>
   );
 };
-CocktailData.propTypes = {
+DrinkView.propTypes = {
   data: PropTypes.object
 };
-export default CocktailData;
+
+const DrinkViewWithSpinner = withSpinner(DrinkView);
+
+export default DrinkViewWithSpinner;

@@ -1,3 +1,4 @@
-import withData from './with-data';
+import withData from './withData';
+import withSpinner from './withSpinner';
 
-export default withData;
+export { withData, withSpinner };
