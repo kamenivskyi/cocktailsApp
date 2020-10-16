@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DrinklItem from './DrinkItem';
-import { withSpinner } from '../../hoc-helpers';
+import { withSpinner } from '../../hocs';
 
 const DrinksList = ({ items }) => (
   <div className='row'>

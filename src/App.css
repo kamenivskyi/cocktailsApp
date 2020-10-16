@@ -3,12 +3,3 @@ img {
   height: auto;
 }
 
-.App .navbar {
-  padding: 0.4rem 1rem;
-}
-
-.navbar-brand {
-  font-family: 'Segoe script', cursive, Arial, sans-serif;
-  text-transform: none;
-}
-

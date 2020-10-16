@@ -3,7 +3,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import CocktailService from './services/CocktailService';
 
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/layout/Navbar/Navbar';
 import Alert from './components/layout/Alert';
 
 import Home from './pages/Home';

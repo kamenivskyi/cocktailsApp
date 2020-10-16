@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../layout/Button';
 
-import logo from '../../assets/drink-logo.png';
+import { Button } from '../../layout/Button';
+
+import logo from '../../../assets/drink-logo.png';
+
+import './Navbar.css';
 
 const Navbar = () => {
   return (
