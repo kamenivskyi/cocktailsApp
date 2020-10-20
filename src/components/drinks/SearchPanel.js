@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { Button } from '../layout/Button';
+import CocktailService from '../../services/CocktailService';
 
 const SearchPanel = ({ getDrinks, generateAlert }) => {
   const [value, setValue] = useState('');
@@ -8,12 +10,13 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
   const alertText = 'This field can not be empty! Enter the name of the drink!';
 
   const handleChange = ({ target: { value } }) => setValue(value);
+  const { getDrinksByName } = CocktailService;
 
   const handleSubmit = event => {
     event.preventDefault();
 
     if (value.trim()) {
-      getDrinks(value);
+      getDrinks(getDrinksByName, value);
     } else {
       generateAlert(alertText, 'warning');
     }

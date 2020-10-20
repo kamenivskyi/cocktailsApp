@@ -11,22 +11,25 @@ const Home = ({
   onFilterChange,
   items,
   loading,
-  error,
-  // ...restProps
-}) => (
+}) => {
+  const noData = !loading && !items;
+
+  return (
     <ErrorBoundary>
       <div className='form-row'>
         <SearchPanel getDrinks={getDrinks} generateAlert={generateAlert} />
         <Filter onFilterChange={onFilterChange} />
       </div>
-      {!error && !items ? (
+
+      {noData ? (
         <p className='text-center' style={{ fontSize: '1.5rem' }}>
-          Your search did not match any drinks
+          Drinks not found
         </p>
       ) : (
           <DrinksList items={items} loading={loading} />
         )}
     </ErrorBoundary>
   );
+}
 
 export default Home;

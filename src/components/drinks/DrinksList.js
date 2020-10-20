@@ -7,9 +7,7 @@ import { drinkViewPropTypes } from '../../utils/props-types/drinkViewPropTypes';
 
 const DrinksList = ({ items }) => (
   <div className='row'>
-    {items && items.map(item => {
-      return <DrinklItem item={item} key={item.name} />;
-    })}
+    {items && items.map(item => <DrinklItem item={item} key={item.name} />)}
   </div>
 );
 

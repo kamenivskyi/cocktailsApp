@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import DrinksList from '../components/drinks/DrinksList';
 import ErrorBoundary from '../components/helpers/ErrorBoundary';
 import CocktailService from '../services/CocktailService';
 import formatCategory from '../utils/formatCategory'
+import useAsyncData from '../hooks/useAsyncData';
 
 const CategoryDrinksContainer = ({ match }) => {
-  const [drinks, setDrinks] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-
-  useEffect(() => {
-    const { getCategoryDrinks } = CocktailService;
-    let cancelled = false;
-
-    const getDrinks = category => {
-      const formatedCategory = formatCategory(category, '_', '/');
-
-      getCategoryDrinks(formatedCategory).then(items => {
-        if (!cancelled) {
-          setDrinks(items);
-          setLoading(false);
-        }
-      });
-    };
-
-    getDrinks(match.params.name);
-
-    return () => { cancelled = true };
-
-  }, [match.params.name]);
+  const formatedCategory = formatCategory(match.params.name, '_', '/');
+  const { getCategoryDrinks } = CocktailService;
+  const { data, loading } = useAsyncData(getCategoryDrinks, formatedCategory);
 
   return (
     <ErrorBoundary>
-      <DrinksList items={drinks} loading={loading} />
+      <DrinksList items={data} loading={loading} />
     </ErrorBoundary>
   );
 }

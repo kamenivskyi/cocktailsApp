@@ -5,6 +5,10 @@ import { withSpinner } from '../../hocs';
 import { drinkViewPropTypes } from '../../utils/props-types/drinkViewPropTypes';
 
 const DrinkView = ({ data }) => {
+  if (!data) {
+    return null;
+  }
+
   const {
     name,
     imgUrl,

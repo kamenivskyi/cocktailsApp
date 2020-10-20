@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -11,59 +11,30 @@ import NotFound from './pages/NotFound/NotFound';
 import Navbar from './components/layout/Navbar/Navbar';
 import Alert from './components/layout/Alert';
 import ErrorBoundary from './components/helpers/ErrorBoundary';
+
 import CocktailService from './services/CocktailService';
+import useAsyncData from './hooks/useAsyncData';
 
 import './App.css';
 
 const App = () => {
   const [term, setTerm] = useState('');
-  const [error, setError] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState(null);
 
   const DEFAULT_DRINK_NAME = 'martini';
+  const { getDrinksByName } = CocktailService;
+  const { data, loading, error, doFetch } = useAsyncData(getDrinksByName, DEFAULT_DRINK_NAME);
 
-  const getDrinks = useCallback((name) => {
-    const { getDrinksByName } = CocktailService;
-
-    setLoading(true);
-
-    getDrinksByName(name).then(drinks => {
-      setLoading(false);
-      setError(false);
-      setItems(drinks);
-
-    }).catch(handleError);
-
-  }, []);
-
-  useEffect(() => {
-    let cancell = false;
-
-    if (!cancell) {
-      getDrinks(DEFAULT_DRINK_NAME)
-    }
-
-    return () => { cancell = true };
-  }, [getDrinks]);
-
-  const handleError = err => {
-    setError(true);
-    setLoading(false);
-    console.log('Error: ', err);
-  };
-
-
-  const onFilterChange = term => setTerm(term);
+  const onFilterChange = (term) => setTerm(term);
 
   const filterCocktails = (items, term) => {
     if (!term.length) {
       return items;
     }
-    const visibleItems = items.filter(({ name }) => {
+
+    const visibleItems = items ? items.filter(({ name }) => {
       return name.toLowerCase().includes(term.toLowerCase());
-    });
+    }) : items;
 
     return visibleItems;
   };
@@ -73,7 +44,7 @@ const App = () => {
     setTimeout(() => setAlert(null), 4000);
   };
 
-  const visibleDrinks = filterCocktails(items, term);
+  const visibleDrinks = filterCocktails(data, term);
 
   return (
     <ErrorBoundary>
@@ -89,7 +60,7 @@ const App = () => {
                   path='/'
                   render={props => (
                     <Home
-                      getDrinks={getDrinks}
+                      getDrinks={doFetch}
                       generateAlert={generateAlert}
                       onFilterChange={onFilterChange}
                       items={visibleDrinks}

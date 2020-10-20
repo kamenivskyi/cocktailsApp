@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import DrinkView from '../components/drinks/DrinkView';
 import ErrorBoundary from '../components/helpers/ErrorBoundary';
 import CocktailService from '../services/CocktailService';
-
-const { getRandom } = CocktailService;
+import useAsyncData from '../hooks/useAsyncData';
 
 const RandomContainer = (props) => {
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    setLoading(true);
-
-    getRandom().then(data => {
-      if (!cancelled) {
-        setData(data);
-        setLoading(false);
-      }
-    }).catch(error => console.log(error));
-
-    return () => { cancelled = true };
-  }, []);
-
+  const { getRandom } = CocktailService;
+  const { data, loading } = useAsyncData(getRandom);
 
   return (
     <ErrorBoundary>
