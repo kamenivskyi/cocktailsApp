@@ -1,6 +1,6 @@
 # Drink searcher
 
-![Image of Yaktocat](https://https://github.com/kamenivskyi/cocktailsApp/image-preview/homepage.png)
+![Drink searcher image](https://https://github.com/kamenivskyi/cocktailsApp/image-preview/homepage.png)
 
 
 [Demo](https://kamenivskyi.github.io/cocktailsApp/)

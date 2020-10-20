@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# image preview
-/image-preview
-
 # testing
 /coverage
 
