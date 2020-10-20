@@ -1,3 +1,11 @@
+# Drink searcher
+
+![Image of Yaktocat](https://https://github.com/kamenivskyi/cocktailsApp/image-preview/homepage.png)
+
+
+[Demo](https://kamenivskyi.github.io/cocktailsApp/)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

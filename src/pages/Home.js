@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 import SearchPanel from '../components/drinks/SearchPanel';
 import Filter from '../components/drinks/Filter';
@@ -30,6 +31,14 @@ const Home = ({
         )}
     </ErrorBoundary>
   );
+}
+
+Home.propTypes = {
+  getDrinks: PropTypes.func.isRequired,
+  generateAlert: PropTypes.func,
+  onFilterChange: PropTypes.func,
+  items: PropTypes.array,
+  loading: PropTypes.bool,
 }
 
 export default Home;

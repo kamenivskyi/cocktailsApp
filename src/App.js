@@ -39,6 +39,7 @@ const App = () => {
     return visibleItems;
   };
 
+
   const generateAlert = (msg, type) => {
     setAlert({ msg, type })
     setTimeout(() => setAlert(null), 4000);
