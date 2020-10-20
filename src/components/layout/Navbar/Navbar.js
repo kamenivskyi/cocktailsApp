@@ -11,7 +11,7 @@ const Navbar = () => (
   <nav className='navbar navbar-expand-sm sticky-top navbar-dark bg-primary'>
     <NavLink to='/' className='navbar-brand'>
       <img src={logo} alt='Drink' />
-        Cocktail-app
+        Drink searcher
       </NavLink>
     <Button
       className='navbar-toggler'

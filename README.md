@@ -1,6 +1,6 @@
 # Drink searcher
 
-![Drink searcher image](https://https://github.com/kamenivskyi/cocktailsApp/image-preview/homepage.png)
+![Drink searcher image](https://github.com/kamenivskyi/cocktailsApp/blob/master/image-preview/homepage.png)
 
 
 [Demo](https://kamenivskyi.github.io/cocktailsApp/)
