@@ -1,8 +1,6 @@
 const formatCategory = (category, matchChar, targetChar) => {
-  const result = [];
-  const arr = category.split('');
-
-  arr.forEach(letter => result.push(letter === matchChar ? targetChar : letter));
+  const arrChars = category.split('');
+  const result = arrChars.map(letter => letter === matchChar ? targetChar : letter);
 
   return result.join('');
 }

@@ -59,6 +59,7 @@ class CocktailService {
 
     const tempIngredients = this._getCorrectProps(restProps, 'strIngredient');
     const tempMeasures = this._getCorrectProps(restProps, 'strMeasure');
+    const ingredsAndMeasures = this._getIngredientsWithMeasures(tempIngredients, tempMeasures);
 
     return {
       id: idDrink,
@@ -69,34 +70,24 @@ class CocktailService {
       glass: strGlass,
       category: strCategory,
       iba: strIBA,
-      ingredsAndMeasures: this._getIngredientsWithMeasures(tempIngredients, tempMeasures),
+      ingredsAndMeasures,
     }
   }
 
-  _getIngredientsWithMeasures = (ingredients, measures) => {
-    const result = [];
+  _getIngredientsWithMeasures = (ingredPropsArr, measuresPropsArr) => {
+    return ingredPropsArr.map((_, idx) => {
+      const measure = measuresPropsArr[idx] ? measuresPropsArr[idx] : '';
 
-    for (let i = 0; i < ingredients.length; i++) {
-      const measure = measures[i] ? measures[i] : '';
+      return { ingredient: ingredPropsArr[idx], measure };
+    })
+  }
 
-      result.push({ ingredient: ingredients[i], measure });
-    }
+
+  _getCorrectProps = (obj, propName) => {
+    const result = Object.keys(obj)
+      .filter(key => key.includes(propName) && obj[key]).map(key => obj[key]);
 
     return result;
-  }
-
-  _getCorrectProps = (arr, propName) => {
-    const correctProps = [];
-
-    for (let key in arr) {
-      const isCorrectProp = key.includes(propName) && arr[key];
-
-      if (isCorrectProp) {
-        correctProps.push(arr[key]);
-      }
-    }
-
-    return correctProps;
   }
 
 }

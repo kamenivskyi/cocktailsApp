@@ -43,6 +43,7 @@ const DrinkView = ({ data }) => {
   }
 
   const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
+  const ingredients = renderIngredients();
 
   return (
     <div className='card'>
@@ -73,7 +74,7 @@ const DrinkView = ({ data }) => {
             </p>
             <div>
               Ingredients:
-            {renderIngredients()}
+            {ingredients}
             </div>
             <NavLink className='btn btn-primary btn-sm my-3' to='/'>
               Back to home

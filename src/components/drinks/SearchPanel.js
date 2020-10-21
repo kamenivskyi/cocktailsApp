@@ -17,13 +17,11 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
 
     if (value.trim()) {
       getDrinks(getDrinksByName, value);
+      setValue('');
     } else {
       generateAlert(alertText, 'warning');
     }
-
-    setValue('');
   };
-
 
   return (
     <form className='form-group col-md-6' onSubmit={handleSubmit}>
