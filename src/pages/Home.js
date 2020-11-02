@@ -1,24 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
 
 import SearchPanel from '../components/drinks/SearchPanel';
 import Filter from '../components/drinks/Filter';
 import DrinksList from '../components/drinks/DrinksList';
 import ErrorBoundary from '../components/helpers/ErrorBoundary';
 
-const Home = ({
-  getDrinks,
-  generateAlert,
-  onFilterChange,
-  items,
-  loading,
-}) => {
-  const noData = !loading && !items;
+import CocktailService from '../services/CocktailService';
+import useAsyncData from '../hooks/useAsyncData';
+import Alert from '../components/layout/Alert';
+
+const Home = () => {
+  const [term, setTerm] = useState('');
+  const [alert, setAlert] = useState(null);
+
+  const DEFAULT_DRINK_NAME = 'martini';
+  const { getDrinksByName } = CocktailService;
+  const { data, loading, error, doFetch } = useAsyncData(getDrinksByName, DEFAULT_DRINK_NAME);
+
+  const onFilterChange = (term) => setTerm(term);
+
+  const filterCocktails = (items, term) => {
+    if (!term.length) {
+      return items;
+    }
+
+    const visibleItems = items ? items.filter(({ name }) => {
+      return name.toLowerCase().includes(term.toLowerCase());
+    }) : items;
+
+    return visibleItems;
+  };
+
+
+  const generateAlert = (msg, type) => {
+    setAlert({ msg, type })
+    setTimeout(() => setAlert(null), 4000);
+  };
+
+  const visibleItems = filterCocktails(data, term);
+
+  const noData = !loading && !visibleItems;
 
   return (
     <ErrorBoundary>
+      <Alert alert={alert} />
       <div className='form-row'>
-        <SearchPanel getDrinks={getDrinks} generateAlert={generateAlert} />
+        <SearchPanel getDrinks={doFetch} generateAlert={generateAlert} />
         <Filter onFilterChange={onFilterChange} />
       </div>
 
@@ -27,18 +54,11 @@ const Home = ({
           Drinks not found
         </p>
       ) : (
-          <DrinksList items={items} loading={loading} />
+          <DrinksList items={visibleItems} loading={loading} />
         )}
     </ErrorBoundary>
   );
-}
+};
 
-Home.propTypes = {
-  getDrinks: PropTypes.func.isRequired,
-  generateAlert: PropTypes.func,
-  onFilterChange: PropTypes.func,
-  items: PropTypes.array,
-  loading: PropTypes.bool,
-}
 
 export default Home;
