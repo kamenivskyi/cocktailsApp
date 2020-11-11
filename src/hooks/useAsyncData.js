@@ -10,7 +10,8 @@ const useAsyncData = (requestData, arg) => {
 
     getDataFunc(arg)
       .then(response => {
-        setData(response)
+        setData(response);
+        setError(false);
       })
       .catch(err => {
         setError(true);
