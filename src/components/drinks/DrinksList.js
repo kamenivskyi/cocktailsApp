@@ -11,7 +11,6 @@ const DrinksList = ({ items }) => (
   </div>
 );
 
-
 DrinksList.propTypes = {
   drinks: PropTypes.arrayOf(drinkViewPropTypes),
 };

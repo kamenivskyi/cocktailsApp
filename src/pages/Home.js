@@ -4,42 +4,26 @@ import SearchPanel from '../components/drinks/SearchPanel';
 import Filter from '../components/drinks/Filter';
 import DrinksList from '../components/drinks/DrinksList';
 import ErrorBoundary from '../components/helpers/ErrorBoundary';
-
 import CocktailService from '../services/CocktailService';
-import useAsyncData from '../hooks/useAsyncData';
+import { useFilterDrinks, useAsyncData } from '../hooks';
 import Alert from '../components/layout/Alert';
 
 const Home = () => {
   const [term, setTerm] = useState('');
   const [alert, setAlert] = useState(null);
-
-  const DEFAULT_DRINK_NAME = 'martini';
   const { getDrinksByName } = CocktailService;
+  const DEFAULT_DRINK_NAME = 'martini';
   const { data, loading, error, doFetch } = useAsyncData(getDrinksByName, DEFAULT_DRINK_NAME);
+  const visibleDrinks = useFilterDrinks(data, term);
 
   const onFilterChange = (term) => setTerm(term);
-
-  const filterCocktails = (items, term) => {
-    if (!term.length) {
-      return items;
-    }
-
-    const visibleItems = items ? items.filter(({ name }) => {
-      return name.toLowerCase().includes(term.toLowerCase());
-    }) : items;
-
-    return visibleItems;
-  };
-
 
   const generateAlert = (msg, type) => {
     setAlert({ msg, type })
     setTimeout(() => setAlert(null), 4000);
   };
 
-  const visibleItems = filterCocktails(data, term);
-
-  const noData = !loading && !visibleItems;
+  const noData = !loading && !visibleDrinks;
 
   return (
     <ErrorBoundary>
@@ -54,7 +38,7 @@ const Home = () => {
           Drinks not found
         </p>
       ) : (
-          <DrinksList items={visibleItems} loading={loading} />
+          <DrinksList items={visibleDrinks} loading={loading} />
         )}
     </ErrorBoundary>
   );
