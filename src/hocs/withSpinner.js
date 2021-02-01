@@ -1,16 +1,9 @@
 import React from 'react';
 
-import Spinner from "../components/layout/Spinner";
+import Spinner from 'components/layout/Spinner';
 
-const withSpinner = (WrappedComponent) => {
-  return ({ loading, ...rest }) => {
-
-    if (loading) {
-      return <Spinner />;
-    }
-
-    return <WrappedComponent {...rest} />;
-  }
-}
+const withSpinner = (WrappedComponent) => ({ loading, ...otherProps }) => {
+  return loading ? <Spinner /> : <WrappedComponent {...otherProps} />;
+};
 
 export default withSpinner;

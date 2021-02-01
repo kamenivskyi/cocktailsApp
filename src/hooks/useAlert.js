@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useAlert = (initialValue) => {
   const [alert, setAlert] = useState(initialValue || null);
   const defaultTimeout = 4000;
-  
-  const generateAlert = (msg, type, timeout) => {
-    setAlert({ msg, type })
+
+  const generateAlert = useCallback((msg, type, timeout) => {
+    setAlert({ msg, type });
     setTimeout(() => setAlert(null), timeout || defaultTimeout);
-  };
+  }, []);
 
   return [alert, generateAlert];
 };

@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const Filter = ({ onFilterChange }) => {
-  const [value, setValue] = useState('');
-
+const Filter = ({ onFilterChange, term }) => {
   const handleChange = ({ target: { value } }) => {
-    setValue(value);
-    onFilterChange(value)
-  }
+    onFilterChange(value);
+  };
 
   return (
     <div className='form-group col-md-6'>
@@ -17,25 +14,15 @@ const Filter = ({ onFilterChange }) => {
           type='text'
           placeholder='Type the name of the drink to filter'
           onChange={handleChange}
-          value={value}
+          value={term}
         />
       </div>
     </div>
   );
-}
+};
 
 Filter.propTypes = {
-  onFilterChange: PropTypes.func.isRequired
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
-
-
-
-
-
-
-
-
-
-

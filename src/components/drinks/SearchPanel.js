@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '../layout/Button';
-import CocktailService from '../../services/CocktailService';
+import { Button } from 'components/layout/Button';
+import CocktailService from 'services/CocktailService';
+import { alertText } from 'config';
+
+const { getDrinksByName } = CocktailService;
 
 const SearchPanel = ({ getDrinks, generateAlert }) => {
   const [value, setValue] = useState('');
 
-  const alertText = 'This field can not be empty! Enter the name of the drink!';
-
   const handleChange = ({ target: { value } }) => setValue(value);
-  const { getDrinksByName } = CocktailService;
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (value.trim()) {
@@ -29,26 +29,23 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
         <input
           type='text'
           className='form-control'
-          placeholder='Enter the name of the drink'
+          placeholder='Enter the name of drink'
           aria-label='Search cocktails'
           onChange={handleChange}
           value={value}
         />
         <div className='input-group-append'>
-          <Button
-            type='submit'
-            className='btn btn-outline-primary btn-sm'
-          >
+          <Button type='submit' className='btn btn-outline-primary btn-sm'>
             Search
           </Button>
         </div>
       </div>
     </form>
   );
-}
+};
 SearchPanel.propTypes = {
   getDrinks: PropTypes.func.isRequired,
-  generateAlert: PropTypes.func.isRequired
+  generateAlert: PropTypes.func.isRequired,
 };
 
-export default SearchPanel;
+export default React.memo(SearchPanel);

@@ -1,22 +1,22 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import DrinkContainer from './pages/DrinkContainer';
-import RandomContainer from './pages/RandomContainer';
-import CategoriesContainer from './pages/CategoriesContainer';
-import CategoryDrinksContainer from './pages/CategoryDrinksContainer';
-import About from './pages/About';
-import NotFound from './pages/NotFound/NotFound';
+import HomePage from 'pages/HomePage';
+import DrinkPage from 'pages/DrinkPage';
+import RandomDrinkPage from 'pages/RandomDrinkPage';
+import CategoriesPage from 'pages/CategoriesPage';
+import CategoryDrinksPage from 'pages/CategoryDrinksPage';
+import AboutPage from 'pages/AboutPage';
+import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
 
 const Routes = () => (
   <Switch>
-    <Route exact path='/' component={Home} />
-    <Route exact path='/random' component={RandomContainer} />
-    <Route exact path='/categories' component={CategoriesContainer} />
-    <Route exact path='/category/:name' component={CategoryDrinksContainer} />
-    <Route exact path='/drink/:id' component={DrinkContainer} />
-    <Route exact path='/about' component={About} />
-    <Route component={NotFound} />
+    <Route exact path='/' component={HomePage} />
+    <Route exact path='/random' component={RandomDrinkPage} />
+    <Route exact path='/categories' component={CategoriesPage} />
+    <Route exact path='/category/:name' component={CategoryDrinksPage} />
+    <Route exact path='/drink/:id' component={DrinkPage} />
+    <Route exact path='/about' component={AboutPage} />
+    <Route component={NotFoundPage} />
   </Switch>
 );
 export default Routes;

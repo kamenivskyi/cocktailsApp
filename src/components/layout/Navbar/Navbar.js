@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Button } from '../../layout/Button';
+import { Button } from 'components/layout/Button';
 
-import logo from '../../../assets/drink-logo.png';
+import logo from 'assets/drink-logo.png';
 
 import './Navbar.css';
 
@@ -11,8 +11,8 @@ const Navbar = () => (
   <nav className='navbar navbar-expand-sm sticky-top navbar-dark bg-primary'>
     <NavLink to='/' className='navbar-brand'>
       <img src={logo} alt='Drink' />
-        Drink searcher
-      </NavLink>
+      Drink searcher
+    </NavLink>
     <Button
       className='navbar-toggler'
       data-toggle='collapse'
@@ -33,17 +33,17 @@ const Navbar = () => (
         <li className='nav-item'>
           <NavLink to='/random' className='nav-link'>
             Random
-            </NavLink>
+          </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink to='/categories' className='nav-link'>
             Categories
-            </NavLink>
+          </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink to='/about' className='nav-link'>
             About
-            </NavLink>
+          </NavLink>
         </li>
       </ul>
     </div>
