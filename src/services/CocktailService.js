@@ -16,33 +16,37 @@ class CocktailService {
     return this._normalizeDrinkObject(random.drinks[0]);
   };
 
-  getDrinkById = async id => {
+  getDrinkById = async (id) => {
     const res = await this._getResource(`/lookup.php?i=${id}`);
 
     return this._normalizeDrinkObject(res.drinks[0]);
   };
 
-  getDrinksByName = async name => {
+  getDrinksByName = async (name) => {
     const res = await this._getResource(`/search.php?s=${name}`);
 
-    return res.drinks.map(drinkObj => this._normalizeDrinkObject(drinkObj));
+    return res && res.drinks && res.drinks.length > 0
+      ? res.drinks.map((drinkObj) => this._normalizeDrinkObject(drinkObj))
+      : [];
   };
 
   getCategories = async () => {
     const categories = await this._getResource('/list.php?c=list');
 
-    return categories.drinks.map(category => this._normalizeCategory(category));
+    return categories.drinks.map((category) =>
+      this._normalizeCategory(category)
+    );
   };
 
-  getCategoryDrinks = async category => {
+  getCategoryDrinks = async (category) => {
     const res = await this._getResource(`/filter.php?c=${category}`);
 
-    return res.drinks.map(drinkObj => this._normalizeDrinkObject(drinkObj));
+    return res.drinks.map((drinkObj) => this._normalizeDrinkObject(drinkObj));
   };
 
   _normalizeCategory = (categories) => ({
-    category: categories.strCategory
-  })
+    category: categories.strCategory,
+  });
 
   _normalizeDrinkObject = (drinkObj) => {
     const {
@@ -59,7 +63,10 @@ class CocktailService {
 
     const tempIngredients = this._getCorrectProps(restProps, 'strIngredient');
     const tempMeasures = this._getCorrectProps(restProps, 'strMeasure');
-    const ingredsAndMeasures = this._getIngredientsWithMeasures(tempIngredients, tempMeasures);
+    const ingredsAndMeasures = this._getIngredientsWithMeasures(
+      tempIngredients,
+      tempMeasures
+    );
 
     return {
       id: idDrink,
@@ -71,25 +78,24 @@ class CocktailService {
       category: strCategory,
       iba: strIBA,
       ingredsAndMeasures,
-    }
-  }
+    };
+  };
 
   _getIngredientsWithMeasures = (ingredPropsArr, measuresPropsArr) => {
     return ingredPropsArr.map((_, idx) => {
       const measure = measuresPropsArr[idx] ? measuresPropsArr[idx] : '';
 
       return { ingredient: ingredPropsArr[idx], measure };
-    })
-  }
-
+    });
+  };
 
   _getCorrectProps = (obj, propName) => {
     const result = Object.keys(obj)
-      .filter(key => key.includes(propName) && obj[key]).map(key => obj[key]);
+      .filter((key) => key.includes(propName) && obj[key])
+      .map((key) => obj[key]);
 
     return result;
-  }
-
+  };
 }
 
 export default new CocktailService();

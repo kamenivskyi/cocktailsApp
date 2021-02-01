@@ -20,8 +20,9 @@ const HomePage = () => {
     getDrinksByName,
     DEFAULT_DRINK
   );
+
   const visibleDrinks = filterDrinks(data, term);
-  const noData = !loading && !visibleDrinks && !error;
+  const noData = !loading && !visibleDrinks.length && !error;
 
   return (
     <ErrorBoundary>
