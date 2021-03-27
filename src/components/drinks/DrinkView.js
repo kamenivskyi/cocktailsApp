@@ -27,8 +27,7 @@ const DrinkView = ({ data }) => {
       'badge-success': compareA !== compareB,
     });
 
-  const renderIngredients = () =>
-    ingredsAndMeasures && (
+  const ingredientsAndMeasures = ingredsAndMeasures ? (
       <ul>
         {ingredsAndMeasures.map(({ ingredient, measure }) => (
           <li key={`ingredient_${Math.random()}`}>
@@ -38,10 +37,7 @@ const DrinkView = ({ data }) => {
           </li>
         ))}
       </ul>
-    );
-
-  const typeBadgeClasses = getTypeBadgeClass(type, 'Alcoholic');
-  const ingredients = renderIngredients();
+    ) :  null;
 
   return (
     <div className='card'>
@@ -68,7 +64,7 @@ const DrinkView = ({ data }) => {
             )}
             {type && (
               <p className='card-text'>
-                Type: <span className={typeBadgeClasses}>{type}</span>
+                Type: <span className={getTypeBadgeClass(type, 'Alcoholic')}>{type}</span>
               </p>
             )}
             {iba && (
@@ -81,10 +77,10 @@ const DrinkView = ({ data }) => {
                 Glass: <span className='badge badge-info mr-3'>{glass}</span>
               </p>
             )}
-            {ingredients && (
+            {ingredientsAndMeasures && (
               <div>
                 Ingredients:
-                {ingredients}
+                {ingredientsAndMeasures}
               </div>
             )}
             <NavLink className='btn btn-primary btn-sm my-3' to='/'>

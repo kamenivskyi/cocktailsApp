@@ -6,22 +6,20 @@ import Filter from 'components/drinks/Filter';
 import DrinksList from 'components/drinks/DrinksList';
 import ErrorBoundary from 'components/helpers/ErrorBoundary';
 
+import drinksService from 'services/DrinksService';
 import { useAsyncData, useAlert } from 'hooks';
-import CocktailService from 'services/CocktailService';
-import { filterDrinks } from 'utils/utils';
+import { getFilteredDrinks } from 'utils/utils';
 import { DEFAULT_DRINK } from 'config';
-
-const { getDrinksByName } = CocktailService;
 
 const HomePage = () => {
   const [term, setTerm] = useState('');
   const [alert, generateAlert] = useAlert(null);
   const { data, loading, error, doFetch } = useAsyncData(
-    getDrinksByName,
+    drinksService.getDrinksByName,
     DEFAULT_DRINK
   );
 
-  const visibleDrinks = filterDrinks(data, term);
+  const visibleDrinks = getFilteredDrinks(data, term);
   const noData = !loading && !visibleDrinks.length && !error;
 
   return (

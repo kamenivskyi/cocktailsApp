@@ -1,4 +1,4 @@
-class CocktailService {
+class DrinksService {
   _apiBase = 'https://www.thecocktaildb.com/api/json/v1/1';
 
   async _getResource(url) {
@@ -98,4 +98,4 @@ class CocktailService {
   };
 }
 
-export default new CocktailService();
+export default new DrinksService();

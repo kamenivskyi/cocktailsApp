@@ -1,4 +1,4 @@
-export const filterDrinks = (items, term) => {
+export const getFilteredDrinks = (items, term) => {
   if (!term.trim().length) {
     return items;
   }

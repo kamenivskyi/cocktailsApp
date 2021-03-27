@@ -1,14 +1,12 @@
 import React from 'react';
 
-import CocktailService from 'services/CocktailService';
+import drinksService from 'services/DrinksService';
 import Categories from 'components/drinks/Categories';
 import ErrorBoundary from 'components/helpers/ErrorBoundary';
 import useAsyncData from 'hooks/useAsyncData';
 
-const { getCategories } = CocktailService;
-
 const CategoriesPage = () => {
-  const { data, loading } = useAsyncData(getCategories);
+  const { data, loading } = useAsyncData(drinksService.getCategories);
 
   return (
     <ErrorBoundary>

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from 'components/layout/Button';
-import CocktailService from 'services/CocktailService';
-import { alertText } from 'config';
+import SearchPanelView from "./SearchPanelView";
 
-const { getDrinksByName } = CocktailService;
+import drinksService from 'services/DrinksService';
+import { alertText } from 'config';
 
 const SearchPanel = ({ getDrinks, generateAlert }) => {
   const [value, setValue] = useState('');
@@ -16,7 +15,7 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
     event.preventDefault();
 
     if (value.trim()) {
-      getDrinks(getDrinksByName, value);
+      getDrinks(drinksService.getDrinksByName, value);
       setValue('');
     } else {
       generateAlert(alertText, 'warning');
@@ -24,23 +23,7 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
   };
 
   return (
-    <form className='form-group col-md-6' onSubmit={handleSubmit}>
-      <div className='input-group mb-3'>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='Enter the name of drink'
-          aria-label='Search cocktails'
-          onChange={handleChange}
-          value={value}
-        />
-        <div className='input-group-append'>
-          <Button type='submit' className='btn btn-outline-primary btn-sm'>
-            Search
-          </Button>
-        </div>
-      </div>
-    </form>
+    <SearchPanelView handleChange={handleChange} handleSubmit={handleSubmit} value={value} />
   );
 };
 SearchPanel.propTypes = {
