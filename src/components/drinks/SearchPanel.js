@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import SearchPanelView from "./SearchPanelView";
 
-import drinksService from 'services/DrinksService';
-import { alertText } from 'config';
+import drinksService from "services/DrinksService";
+import { useTranslation } from "react-i18next";
 
 const SearchPanel = ({ getDrinks, generateAlert }) => {
-  const [value, setValue] = useState('');
+  const { t } = useTranslation();
+  const [value, setValue] = useState("");
 
   const handleChange = ({ target: { value } }) => setValue(value);
 
@@ -16,14 +17,21 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
 
     if (value.trim()) {
       getDrinks(drinksService.getDrinksByName, value);
-      setValue('');
+      setValue("");
     } else {
-      generateAlert(alertText, 'warning');
+      generateAlert(
+        t("This field can not be empty! Enter the name of the drink!"),
+        "warning"
+      );
     }
   };
 
   return (
-    <SearchPanelView handleChange={handleChange} handleSubmit={handleSubmit} value={value} />
+    <SearchPanelView
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      value={value}
+    />
   );
 };
 SearchPanel.propTypes = {
