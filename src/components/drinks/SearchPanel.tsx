@@ -1,28 +1,35 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import SearchPanelView from "./SearchPanelView";
 
 import drinksService from "services/DrinksService";
 import { useTranslation } from "react-i18next";
 
-const SearchPanel = ({ getDrinks, generateAlert }) => {
+interface ISearchPanel {
+  getDrinks: (func: Function, value: string) => void;
+  generateAlert: (message: string, type: string) => void;
+}
+
+const EMPTY_FIELD_MESSAGE =
+  "This field can not be empty! Enter the name of the drink!";
+const ALERT_WARNING_COLOR = "warning";
+
+const SearchPanel = ({ getDrinks, generateAlert }: ISearchPanel) => {
   const { t } = useTranslation();
   const [value, setValue] = useState("");
 
-  const handleChange = ({ target: { value } }) => setValue(value);
+  const handleChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => setValue(value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (value.trim()) {
       getDrinks(drinksService.getDrinksByName, value);
       setValue("");
     } else {
-      generateAlert(
-        t("This field can not be empty! Enter the name of the drink!"),
-        "warning"
-      );
+      generateAlert(t(EMPTY_FIELD_MESSAGE), ALERT_WARNING_COLOR);
     }
   };
 
@@ -33,10 +40,6 @@ const SearchPanel = ({ getDrinks, generateAlert }) => {
       value={value}
     />
   );
-};
-SearchPanel.propTypes = {
-  getDrinks: PropTypes.func.isRequired,
-  generateAlert: PropTypes.func.isRequired,
 };
 
 export default React.memo(SearchPanel);

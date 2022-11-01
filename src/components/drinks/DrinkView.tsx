@@ -5,8 +5,15 @@ import classNames from "classnames";
 import { withSpinner } from "hocs";
 import { drinkViewShape } from "utils/commonPropTypes";
 import { useTranslation } from "react-i18next";
+import { IDrinkItem, IMeasureAndIngredient } from "interfaces/drink";
 
-const DrinkView = ({ data }) => {
+interface IDrinkView {
+  data: IDrinkItem;
+}
+
+type TReturnedType = JSX.Element | null;
+
+const DrinkView = ({ data }: IDrinkView): TReturnedType => {
   const { t } = useTranslation();
 
   if (!data) {
@@ -24,7 +31,7 @@ const DrinkView = ({ data }) => {
     ingredsAndMeasures,
   } = data;
 
-  const getTypeBadgeClass = (compareA, compareB) =>
+  const getTypeBadgeClass = (compareA: string, compareB: string) =>
     classNames(["badge", "mr-3"], {
       "badge-danger": compareA === compareB,
       "badge-success": compareA !== compareB,
@@ -32,13 +39,17 @@ const DrinkView = ({ data }) => {
 
   const ingredientsAndMeasures = ingredsAndMeasures ? (
     <ul>
-      {ingredsAndMeasures.map(({ ingredient, measure }) => (
-        <li key={`ingredient_${Math.random()}`}>
-          <span>
-            {ingredient} {measure ? `(${measure})` : ""}
-          </span>
-        </li>
-      ))}
+      {ingredsAndMeasures.map(
+        ({ ingredient, measure }: IMeasureAndIngredient, idx: number) => {
+          return (
+            <li key={`ingredient_${idx}`}>
+              <span>
+                {ingredient} {measure ? `(${measure})` : ""}
+              </span>
+            </li>
+          );
+        }
+      )}
     </ul>
   ) : null;
 

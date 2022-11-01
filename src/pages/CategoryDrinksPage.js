@@ -1,17 +1,19 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import DrinksList from "components/drinks/DrinksList";
 import ErrorBoundary from "components/helpers/ErrorBoundary";
 import drinksService from "services/DrinksService";
 import useAsyncData from "hooks/useAsyncData";
-import { useTranslation } from "react-i18next";
+import { decodeBase64 } from "utils/base64helpers";
 
 const CategoryDrinksPage = ({ match }) => {
   const { t } = useTranslation();
-  const formattedCategory = match.params.name.replaceAll("_", "/");
+  const decodedCategory = decodeBase64(match.params.name);
+
   const { data, error, loading } = useAsyncData(
     drinksService.getCategoryDrinks,
-    formattedCategory
+    decodedCategory
   );
 
   return (

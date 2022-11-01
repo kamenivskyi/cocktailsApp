@@ -1,11 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 
-const Filter = ({ onFilterChange, term }) => {
+interface IFilter {
+  onFilterChange: (value: string) => void;
+  term: string;
+}
+
+const Filter = ({ onFilterChange, term }: IFilter): JSX.Element => {
   const { t } = useTranslation();
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange(value);
   };
 
@@ -22,10 +28,6 @@ const Filter = ({ onFilterChange, term }) => {
       </div>
     </div>
   );
-};
-
-Filter.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import { IDrinkItem } from "interfaces/drink";
 
-const DrinklItem = ({ item }) => {
+const DrinklItem = ({ item }: { item: IDrinkItem }): JSX.Element => {
   const { t } = useTranslation();
 
   const { name, imgUrl, id, category } = item;
@@ -27,14 +27,6 @@ const DrinklItem = ({ item }) => {
       </div>
     </div>
   );
-};
-
-DrinklItem.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-    imgUrl: PropTypes.string.isRequired,
-  }),
 };
 
 export default DrinklItem;

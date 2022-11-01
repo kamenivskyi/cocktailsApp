@@ -1,10 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { Button } from "components/layout/Button";
 import { useTranslation } from "react-i18next";
 
-const SearchPanelView = ({ handleSubmit, handleChange, value }) => {
+interface ISearchPanelView {
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+}
+
+const SearchPanelView = ({
+  handleSubmit,
+  handleChange,
+  value,
+}: ISearchPanelView) => {
   const { t } = useTranslation();
 
   return (
@@ -26,12 +35,6 @@ const SearchPanelView = ({ handleSubmit, handleChange, value }) => {
       </div>
     </form>
   );
-};
-
-SearchPanelView.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default SearchPanelView;
