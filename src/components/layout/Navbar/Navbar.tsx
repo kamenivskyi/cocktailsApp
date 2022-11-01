@@ -70,6 +70,7 @@ const Navbar = (): JSX.Element => {
           <li className="nav-item">
             <div className="dropdown">
               <a
+                href="#change-lang"
                 className="nav-link dropdown-toggle"
                 type="button"
                 data-toggle="dropdown"
