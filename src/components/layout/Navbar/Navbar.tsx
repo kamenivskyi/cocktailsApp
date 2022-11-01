@@ -3,24 +3,30 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import clx from "classnames";
 
-import { Button } from "components/layout/Button";
-
 import logo from "assets/icons/drink-logo.png";
 import langIcon from "assets/icons/lang-icon.png";
+import { Button } from "components/layout/Button";
 
 import "./Navbar.css";
 
-const Navbar = () => {
+const UA_LANG = "ua";
+const EN_LANG = "en";
+const DEFAULT_LANG = EN_LANG;
+
+const Navbar = (): JSX.Element => {
   const [selectedLang, setSelectedLang] = useState(() => {
     if (window.localStorage.getItem("i18nextLng")) {
       return window.localStorage.getItem("i18nextLng");
     }
-    return "en";
+    return DEFAULT_LANG;
   });
   const { t, i18n } = useTranslation();
 
-  const onChangeLanguage = (e) => {
-    const lang = e.target.hash.slice(1);
+  const onChangeLanguage = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string
+  ): void => {
+    const lang = hash.slice(1);
 
     e.preventDefault();
     setSelectedLang(lang);
@@ -34,6 +40,7 @@ const Navbar = () => {
         {t("Main logo")}
       </NavLink>
       <Button
+        type="button"
         className="navbar-toggler"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -76,25 +83,27 @@ const Navbar = () => {
                     marginTop: "-6px",
                   }}
                   src={langIcon}
-                  atr="lang"
+                  alt="lang"
                 />
                 {t("Change lang")}
               </a>
               <div className="dropdown-menu">
                 <a
-                  onClick={onChangeLanguage}
+                  onClick={(e) => onChangeLanguage(e, "#ua")}
                   className={clx("dropdown-item", {
-                    active: selectedLang === "ua",
+                    active: selectedLang === UA_LANG,
                   })}
+                  data-lang="#ua"
                   href="#ua"
                 >
                   UA
                 </a>
                 <a
-                  onClick={onChangeLanguage}
+                  onClick={(e) => onChangeLanguage(e, "#en")}
                   className={clx("dropdown-item", {
-                    active: selectedLang === "en",
+                    active: selectedLang === EN_LANG,
                   })}
+                  data-lang="#en"
                   href="#en"
                 >
                   ENG
