@@ -8,7 +8,7 @@ import CategoryDrinksPage from "pages/CategoryDrinksPage";
 import AboutPage from "pages/AboutPage";
 import NotFoundPage from "pages/NotFoundPage/NotFoundPage";
 
-const Routes = () => (
+const Routes = (): JSX.Element => (
   <Switch>
     <Route exact path="/" component={HomePage} />
     <Route exact path="/random" component={RandomDrinkPage} />

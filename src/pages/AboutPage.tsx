@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const AboutPage = () => {
+const AboutPage = (): JSX.Element => {
   const { t } = useTranslation();
   return (
     <div className="jumbotron">

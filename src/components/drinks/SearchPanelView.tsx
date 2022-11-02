@@ -13,7 +13,7 @@ const SearchPanelView = ({
   handleSubmit,
   handleChange,
   value,
-}: ISearchPanelView) => {
+}: ISearchPanelView): JSX.Element => {
   const { t } = useTranslation();
 
   return (

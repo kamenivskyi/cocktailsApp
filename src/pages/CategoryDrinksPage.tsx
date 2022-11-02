@@ -6,10 +6,13 @@ import ErrorBoundary from "components/helpers/ErrorBoundary";
 import drinksService from "services/DrinksService";
 import useAsyncData from "hooks/useAsyncData";
 import { decodeBase64 } from "utils/base64helpers";
+import { useParams } from "react-router-dom";
+import { ICategoryDrinksParams } from "interfaces/paramsTypes";
 
-const CategoryDrinksPage = ({ match }) => {
+const CategoryDrinksPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const decodedCategory = decodeBase64(match.params.name);
+  const params = useParams<ICategoryDrinksParams>();
+  const decodedCategory = decodeBase64(params.name);
 
   const { data, error, loading } = useAsyncData(
     drinksService.getCategoryDrinks,

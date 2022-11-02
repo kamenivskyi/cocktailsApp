@@ -7,22 +7,23 @@ import DrinksList from "components/drinks/DrinksList";
 import ErrorBoundary from "components/helpers/ErrorBoundary";
 
 import drinksService from "services/DrinksService";
-import { useAsyncData, useAlert } from "hooks";
+import { useAlert, useAsyncData } from "hooks";
 import { getFilteredDrinks } from "utils/utils";
 import { DEFAULT_DRINK } from "config";
 import { useTranslation } from "react-i18next";
+import { IDrinkItem } from "interfaces/drink";
 
-const HomePage = () => {
+const HomePage = (): JSX.Element | null => {
   const [term, setTerm] = useState("");
-  const [alert, generateAlert] = useAlert(null);
+  const [alert, generateAlert] = useAlert();
   const { t } = useTranslation();
-  const { data, loading, error, doFetch } = useAsyncData(
+  const { data, loading, error, doFetch } = useAsyncData<IDrinkItem[] | null>(
     drinksService.getDrinksByName,
     DEFAULT_DRINK
   );
 
-  const visibleDrinks = getFilteredDrinks(data, term);
-  const noData = !loading && !visibleDrinks.length && !error;
+  const visibleDrinks = getFilteredDrinks<IDrinkItem[] | null>(data, term);
+  const noData = !loading && !visibleDrinks?.length && !error;
 
   return (
     <ErrorBoundary>

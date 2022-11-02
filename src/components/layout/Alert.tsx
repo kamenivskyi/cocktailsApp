@@ -4,14 +4,19 @@ interface IProps {
   alert: {
     msg: string;
     type: string;
-  } | null;
+  };
 }
 
-const Alert = ({ alert }: IProps) =>
-  alert !== null && (
+const Alert = ({ alert }: IProps): JSX.Element | null => {
+  if (!alert.msg) {
+    return null;
+  }
+
+  return (
     <div className={`alert alert-${alert.type}`} role="alert">
       {alert.msg}
     </div>
   );
+};
 
 export default Alert;

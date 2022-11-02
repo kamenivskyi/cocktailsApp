@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 
 import { withSpinner } from "hocs";
-import { drinkViewShape } from "utils/commonPropTypes";
 import { useTranslation } from "react-i18next";
 import { IDrinkItem, IMeasureAndIngredient } from "interfaces/drink";
 
@@ -111,10 +110,6 @@ const DrinkView = ({ data }: IDrinkView): TReturnedType => {
       </div>
     </div>
   );
-};
-
-DrinkView.propTypes = {
-  data: drinkViewShape,
 };
 
 const DrinkViewWithSpinner = withSpinner(DrinkView);

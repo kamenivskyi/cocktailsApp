@@ -7,14 +7,17 @@ import { useTranslation } from "react-i18next";
 
 interface ISearchPanel {
   getDrinks: (func: Function, value: string) => void;
-  generateAlert: (message: string, type: string) => void;
+  generateAlert: (msg: string, type: string, timeout?: number) => void;
 }
 
 const EMPTY_FIELD_MESSAGE =
   "This field can not be empty! Enter the name of the drink!";
 const ALERT_WARNING_COLOR = "warning";
 
-const SearchPanel = ({ getDrinks, generateAlert }: ISearchPanel) => {
+const SearchPanel = ({
+  getDrinks,
+  generateAlert,
+}: ISearchPanel): JSX.Element => {
   const { t } = useTranslation();
   const [value, setValue] = useState("");
 
