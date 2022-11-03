@@ -11,7 +11,7 @@ interface IState {
   errorInfo: IErrorInfo | null;
 }
 
-class ErrorBoundary extends React.Component<IErrorBoundary> {
+class ErrorBoundary extends React.Component<IErrorBoundary | any> {
   public state: IState = {
     hasError: false,
     errorInfo: null,

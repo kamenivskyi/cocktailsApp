@@ -1,17 +1,21 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import DrinkView from "components/drinks/DrinkView";
 import ErrorBoundary from "components/helpers/ErrorBoundary";
 
 import drinksService from "services/DrinksService";
-import useAsyncData from "hooks/useAsyncData";
 
 const RandomDrinkPage = (): JSX.Element => {
-  const { data, loading } = useAsyncData(drinksService.getRandom);
+  const { data, isFetching, isFetchedAfterMount } = useQuery({
+    queryFn: () => drinksService.getRandom(),
+    queryKey: ["getRandom"],
+  });
+  const actualData = isFetchedAfterMount ? data : null;
 
   return (
     <ErrorBoundary>
-      <DrinkView data={data} loading={loading} />
+      <DrinkView data={actualData} loading={isFetching} />
     </ErrorBoundary>
   );
 };

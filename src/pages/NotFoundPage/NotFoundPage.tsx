@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import "./NotFoundPage.css";
 
-const NotFoundPage = () => {
+const NotFoundPage = (): JSX.Element => {
   const { t } = useTranslation();
 
   return (

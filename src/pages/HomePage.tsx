@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import Alert from "components/layout/Alert";
 import SearchPanel from "components/drinks/SearchPanel";
@@ -7,7 +8,7 @@ import DrinksList from "components/drinks/DrinksList";
 import ErrorBoundary from "components/helpers/ErrorBoundary";
 
 import drinksService from "services/DrinksService";
-import { useAlert, useAsyncData } from "hooks";
+import { useAlert } from "hooks";
 import { getFilteredDrinks } from "utils/utils";
 import { DEFAULT_DRINK } from "config";
 import { useTranslation } from "react-i18next";
@@ -15,22 +16,35 @@ import { IDrinkItem } from "interfaces/drink";
 
 const HomePage = (): JSX.Element | null => {
   const [term, setTerm] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [alert, generateAlert] = useAlert();
   const { t } = useTranslation();
-  const { data, loading, error, doFetch } = useAsyncData<IDrinkItem[] | null>(
-    drinksService.getDrinksByName,
-    DEFAULT_DRINK
-  );
+
+  const { isFetching, isError, data } = useQuery({
+    queryFn: () => drinksService.getDrinksByName(searchValue || DEFAULT_DRINK),
+    queryKey: ["searchValue", searchValue],
+  });
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTerm(e.target.value);
+  };
+
+  const searchDrinks = (value: string) => {
+    setSearchValue(value);
+  };
 
   const visibleDrinks = getFilteredDrinks<IDrinkItem[] | null>(data, term);
-  const noData = !loading && !visibleDrinks?.length && !error;
+  const noData = !isFetching && !visibleDrinks?.length && !isError;
 
   return (
     <ErrorBoundary>
       <Alert alert={alert} />
       <div className="form-row">
-        <SearchPanel getDrinks={doFetch} generateAlert={generateAlert} />
-        <Filter onFilterChange={setTerm} term={term} />
+        <SearchPanel
+          searchDrinks={searchDrinks}
+          generateAlert={generateAlert}
+        />
+        <Filter handleChange={onChange} term={term} />
       </div>
 
       {noData ? (
@@ -38,9 +52,9 @@ const HomePage = (): JSX.Element | null => {
           {t("Drinks not found")}
         </p>
       ) : (
-        <DrinksList items={visibleDrinks} loading={loading} />
+        <DrinksList items={visibleDrinks} loading={isFetching} />
       )}
-      {error && <p className="text-center">{t("Something went wrong")}!</p>}
+      {isError && <p className="text-center">{t("Something went wrong")}!</p>}
     </ErrorBoundary>
   );
 };

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 
-import SearchPanelView from "./SearchPanelView";
-
-import drinksService from "services/DrinksService";
 import { useTranslation } from "react-i18next";
+import { Button } from "components/layout/Button";
 
 interface ISearchPanel {
-  getDrinks: (func: Function, value: string) => void;
+  searchDrinks: (value: string) => void;
   generateAlert: (msg: string, type: string, timeout?: number) => void;
 }
 
@@ -15,7 +13,7 @@ const EMPTY_FIELD_MESSAGE =
 const ALERT_WARNING_COLOR = "warning";
 
 const SearchPanel = ({
-  getDrinks,
+  searchDrinks,
   generateAlert,
 }: ISearchPanel): JSX.Element => {
   const { t } = useTranslation();
@@ -29,7 +27,7 @@ const SearchPanel = ({
     event.preventDefault();
 
     if (value.trim()) {
-      getDrinks(drinksService.getDrinksByName, value);
+      searchDrinks(value);
       setValue("");
     } else {
       generateAlert(t(EMPTY_FIELD_MESSAGE), ALERT_WARNING_COLOR);
@@ -37,11 +35,23 @@ const SearchPanel = ({
   };
 
   return (
-    <SearchPanelView
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      value={value}
-    />
+    <form className="form-group col-md-6" onSubmit={handleSubmit}>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder={t("Enter the name of drink")}
+          aria-label="Search cocktails"
+          onChange={handleChange}
+          value={value}
+        />
+        <div className="input-group-append">
+          <Button type="submit" className="btn btn-outline-primary btn-sm">
+            {t("Search")}
+          </Button>
+        </div>
+      </div>
+    </form>
   );
 };
 

@@ -1,19 +1,31 @@
 import { createRoot } from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import React from "react";
 import App from "./App";
 
 import "./i18n.ts";
 
 import "./bootstrap.min.css";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 root.render(
-  <React.StrictMode>
-    <Router>
+  <Router>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </Router>
-  </React.StrictMode>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </Router>
 );

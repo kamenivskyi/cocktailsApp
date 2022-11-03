@@ -24,17 +24,15 @@ const Navbar = (): JSX.Element => {
 
   const onChangeLanguage = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    hash: string
+    lang: string
   ): void => {
-    const lang = hash.slice(1);
-
     e.preventDefault();
     setSelectedLang(lang);
     i18n.changeLanguage(lang);
   };
 
   return (
-    <nav className="navbar navbar-expand-sm sticky-top navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-md sticky-top navbar-dark bg-primary">
       <NavLink to="/" className="navbar-brand">
         <img src={logo} alt="Drink" />
         {t("Main logo")}
@@ -90,21 +88,19 @@ const Navbar = (): JSX.Element => {
               </a>
               <div className="dropdown-menu">
                 <a
-                  onClick={(e) => onChangeLanguage(e, "#ua")}
+                  onClick={(e) => onChangeLanguage(e, "ua")}
                   className={clx("dropdown-item", {
                     active: selectedLang === UA_LANG,
                   })}
-                  data-lang="#ua"
                   href="#ua"
                 >
                   UA
                 </a>
                 <a
-                  onClick={(e) => onChangeLanguage(e, "#en")}
+                  onClick={(e) => onChangeLanguage(e, "en")}
                   className={clx("dropdown-item", {
                     active: selectedLang === EN_LANG,
                   })}
-                  data-lang="#en"
                   href="#en"
                 >
                   ENG

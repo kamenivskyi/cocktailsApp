@@ -44,7 +44,7 @@ class DrinksService {
     );
   };
 
-  getCategoryDrinks = async (category: IServerCategory) => {
+  getCategoryDrinks = async (category: string) => {
     const res = await this._getResource(`/filter.php?c=${category}`);
 
     return res.drinks.map((drinkObj: TServerDrink) =>

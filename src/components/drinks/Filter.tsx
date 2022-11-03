@@ -2,18 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 interface IFilter {
-  onFilterChange: (value: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   term: string;
 }
 
-const Filter = ({ onFilterChange, term }: IFilter): JSX.Element => {
+const Filter = ({ handleChange, term }: IFilter): JSX.Element => {
   const { t } = useTranslation();
-
-  const handleChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    onFilterChange(value);
-  };
 
   return (
     <div className="form-group col-md-6">
