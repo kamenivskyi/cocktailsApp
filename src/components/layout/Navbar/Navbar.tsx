@@ -32,7 +32,7 @@ const Navbar = (): JSX.Element => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md sticky-top navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-md sticky-top navbar-dark bg-dark">
       <NavLink to="/" className="navbar-brand">
         <img src={logo} alt="Drink" />
         {t("Main logo")}
@@ -66,26 +66,26 @@ const Navbar = (): JSX.Element => {
             </NavLink>
           </li>
           <li className="nav-item">
+            <a
+              href="#change-lang"
+              className="nav-link dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                style={{
+                  height: "25px",
+                  marginRight: "10px",
+                  position: "relative",
+                  marginTop: "-6px",
+                }}
+                src={langIcon}
+                alt="lang"
+              />
+              {t("Change lang")}
+            </a>
             <div className="dropdown">
-              <a
-                href="#change-lang"
-                className="nav-link dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  style={{
-                    height: "25px",
-                    marginRight: "10px",
-                    position: "relative",
-                    marginTop: "-6px",
-                  }}
-                  src={langIcon}
-                  alt="lang"
-                />
-                {t("Change lang")}
-              </a>
               <div className="dropdown-menu">
                 <a
                   onClick={(e) => onChangeLanguage(e, "ua")}

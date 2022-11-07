@@ -30,10 +30,10 @@ const DrinkView = ({ data }: IDrinkView): TReturnedType => {
     ingredsAndMeasures,
   } = data;
 
-  const getTypeBadgeClass = (compareA: string, compareB: string) =>
+  const getTypeBadgeClass = (compareA: string) =>
     classNames(["badge", "mr-3"], {
-      "badge-danger": compareA === compareB,
-      "badge-success": compareA !== compareB,
+      "bg-danger": compareA === "Alcoholic",
+      "bg-success": compareA !== "Alcoholic",
     });
 
   const ingredientsAndMeasures = ingredsAndMeasures ? (
@@ -74,27 +74,25 @@ const DrinkView = ({ data }: IDrinkView): TReturnedType => {
             {category && (
               <p className="card-text">
                 {t("Drink page category property")}:{" "}
-                <span className="badge badge-primary">{category}</span>
+                <span className="badge bg-primary">{category}</span>
               </p>
             )}
             {type && (
               <p className="card-text">
                 {t("Drink page type property")}:{" "}
-                <span className={getTypeBadgeClass(type, "Alcoholic")}>
-                  {type}
-                </span>
+                <span className={getTypeBadgeClass(type)}>{type}</span>
               </p>
             )}
             {iba && (
               <p className="card-text">
                 {t("Drink page iba property")}:{" "}
-                <span className="badge badge-success mr-3"> {iba}</span>
+                <span className="badge bg-success mr-3"> {iba}</span>
               </p>
             )}
             {glass && (
               <p className="card-text">
                 {t("Drink page glass property")}:{" "}
-                <span className="badge badge-info mr-3">{glass}</span>
+                <span className="badge bg-info mr-3">{glass}</span>
               </p>
             )}
             {ingredientsAndMeasures && (
@@ -102,7 +100,7 @@ const DrinkView = ({ data }: IDrinkView): TReturnedType => {
                 {t("Drink page ingredients property")}:{ingredientsAndMeasures}
               </div>
             )}
-            <NavLink className="btn btn-primary btn-sm my-3" to="/">
+            <NavLink className="btn btn-primary my-3" to="/">
               {t("Drink page back to home")}
             </NavLink>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import Alert from "components/layout/Alert";
@@ -14,9 +14,11 @@ import { DEFAULT_DRINK } from "config";
 import { useTranslation } from "react-i18next";
 import { IDrinkItem } from "interfaces/drink";
 
+let savedValue = "";
+
 const HomePage = (): JSX.Element | null => {
   const [term, setTerm] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(savedValue);
   const [alert, generateAlert] = useAlert();
   const { t } = useTranslation();
 
@@ -25,11 +27,15 @@ const HomePage = (): JSX.Element | null => {
     queryKey: ["searchValue", searchValue],
   });
 
+  useEffect(() => {
+    savedValue = searchValue;
+  }, [searchValue]);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
   };
 
-  const searchDrinks = (value: string) => {
+  const saveValue = (value: string) => {
     setSearchValue(value);
   };
 
@@ -39,11 +45,8 @@ const HomePage = (): JSX.Element | null => {
   return (
     <ErrorBoundary>
       <Alert alert={alert} />
-      <div className="form-row">
-        <SearchPanel
-          searchDrinks={searchDrinks}
-          generateAlert={generateAlert}
-        />
+      <div className="row">
+        <SearchPanel searchDrinks={saveValue} generateAlert={generateAlert} />
         <Filter handleChange={onChange} term={term} />
       </div>
 

@@ -35,23 +35,23 @@ const SearchPanel = ({
   };
 
   return (
-    <form className="form-group col-md-6" onSubmit={handleSubmit}>
-      <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder={t("Enter the name of drink")}
-          aria-label="Search cocktails"
-          onChange={handleChange}
-          value={value}
-        />
-        <div className="input-group-append">
-          <Button type="submit" className="btn btn-outline-primary btn-sm">
+    <div className="col-md-6">
+      <form className="input-group" onSubmit={handleSubmit}>
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder={t("Enter the name of drink")}
+            aria-label="Search cocktails"
+            onChange={handleChange}
+            value={value}
+          />
+          <Button type="submit" className="btn btn-dark">
             {t("Search")}
           </Button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 

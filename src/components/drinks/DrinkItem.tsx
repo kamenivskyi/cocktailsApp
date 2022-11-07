@@ -20,7 +20,7 @@ const DrinklItem = ({ item }: { item: IDrinkItem }): JSX.Element => {
               {t("Card category")}: {category}
             </p>
           )}
-          <Link to={`/drink/${id}`} className="btn btn-outline-primary btn-sm">
+          <Link to={`/drink/${id}`} className="btn btn-outline-dark">
             {t("Card more details button")}
           </Link>
         </div>

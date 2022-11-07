@@ -69,8 +69,8 @@ class DrinksService {
       ...restProps
     } = drinkObj;
 
-    const tempIngredients = this._getCorrectProps(restProps, "strIngredient");
-    const tempMeasures = this._getCorrectProps(restProps, "strMeasure");
+    const tempIngredients = this.getCorrectProps(restProps, "strIngredient");
+    const tempMeasures = this.getCorrectProps(restProps, "strMeasure");
     const ingredsAndMeasures = this.getIngredientsWithMeasures(
       tempIngredients,
       tempMeasures
@@ -100,7 +100,7 @@ class DrinksService {
     });
   };
 
-  _getCorrectProps = (obj: Record<string, any>, propName: string) => {
+  private getCorrectProps = (obj: Record<string, any>, propName: string) => {
     const result = Object.keys(obj)
       .filter((key: string) => key.includes(propName) && obj[key])
       .map((key) => obj[key]);

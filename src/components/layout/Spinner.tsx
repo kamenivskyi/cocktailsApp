@@ -10,7 +10,7 @@ const Spinner = () => {
         style={{ width: "3.5rem", height: "3.5rem" }}
         role="status"
       >
-        <span className="sr-only">{t("Spinner loading")}...</span>
+        {/* <span className="sr-only">{t("Spinner loading")}...</span> */}
       </div>
     </div>
   );
