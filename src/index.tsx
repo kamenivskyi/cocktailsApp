@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { HashRouter as Router } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { queryStaleTime } from "app-constants";
+import { queryStaleTime } from "config";
 
 import App from "./App";
 
