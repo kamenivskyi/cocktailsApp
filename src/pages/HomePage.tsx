@@ -25,6 +25,7 @@ const HomePage = (): JSX.Element | null => {
   const { isFetching, isError, data } = useQuery({
     queryFn: () => drinksService.getDrinksByName(searchValue || DEFAULT_DRINK),
     queryKey: ["searchValue", searchValue],
+    staleTime: 5000 * 60,
   });
 
   useEffect(() => {
